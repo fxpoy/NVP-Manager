@@ -1,4 +1,8 @@
+
+
+
 --CREATE FONCTION TU USE LOG
+
 
 
 on write_to_file(this_data, target_file, append_data)
@@ -18,69 +22,102 @@ on write_to_file(this_data, target_file, append_data)
 end write_to_file
 
 
+
 -- IMPORT OF BASE_VARIABLES SCRIPT (.scptd)
 
 
-set scriptPath to POSIX path of ((path to me as text) & "::")
-set baseVariablesPath to (scriptPath & "/base_variables/base_variables.scptd")
-set baseVariables to (load script baseVariablesPath)
+
+set scriptPath to POSIX path of ((path to me as text) & "::")  -- create a variable for the parents folder path  of the actual script
+set baseVariablesPath to (scriptPath & "/base_variables/base_variables.scptd")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
+set baseVariables to (load script baseVariablesPath) -- call of the script "base_variables.scptd" in the actual script
+
 
 
 -- CALL TO WRITE ON THE LOG FILE
 
 
-set logPath to scriptPath & "/.log"
-my write_to_file("starting script \n",logPath,false) 
+
+set logPath to scriptPath & "/.log" -- create a variable for the path of the log file (name = ".log")
+
+my write_to_file("starting script \n \n",logPath,false) -- anounce to the starting of the scrip
 
 
 
 -- RUN TO CREATE THE NEW PROJECT FOLDER
 
+
+
 set createNewProjectFolder to (display dialog "Hello there! Do you want to create a New Video Project folder ?" buttons {"No","Yes"} default button 2 with icon (iconNVPManagerFolderPpath of baseVariables))
 if button returned of createNewProjectFolder = "No" then
-	my write_to_file("exiting app\n",logPath,true)
+
+	my write_to_file("exiting app on the display dialog 'Hello there! Do you want to create a New Video Project folder ?' \n \n",logPath,true) -- write in log file the exit of the app "NVP Manager"
+
 	return 
 end if
+
 
 
 --CHOOSE THE CLIENT NAME OF THE VIDEO PROJECT
 
 
+
 set AllClientList to do shell script "find /Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/01_CLIENT_NAME -mindepth 1  -maxdepth 1 -type d -exec basename {} \\; | grep -v 00_ | grep -v Corbeille | sort"
 set AppleScript's text item delimiters to {return & linefeed, return, linefeed, character id 8233, character id 8232}
 set allClientName to (every text item in AllClientList) as list
+my write_to_file("var allClientName =\n{" & allClientName & "} \n \n",logPath,true) -- write in log file the value of allClientName
+
 set clientName to (choose from list allClientName with title "Video project name" with prompt "Select the Client name of the video project :") as text
+my write_to_file("var clientName = " & clientName & " \n \n",logPath,true) -- write in log file the value of clientName
 
 
 
 --ASK FOR THE PROJECT NAME
 
 
+
 set projectName to text returned of (display dialog "name of the project :" buttons {"Cancel", "OK"} default button 2 default answer "" with icon (iconRessourcesFolderPpath of baseVariables)) as text
+my write_to_file("var projectName = " & projectName & " \n \n",logPath,true) -- write in log file the value of projectName
+
 
 
 --NAME OF THE GLOBAL PROJECT FOLDER 
 
 
-set globalProjectName to clientName & "_" & projectName as text
+
+set globalProjectName to clientName & "_" & projectName as text -- concatenation of the two variables : "clientName" and "projectName"
+my write_to_file("var globalProjectName = " & globalProjectName & " \n \n",logPath,true) -- write in log file the value of globalProjectName
+
 
 
 --ASK FOR THE DIRECTORY OF THE GLOBAL PROJECT FOLDER
 
 
-set New_Project_RootFolderDirectory to (choose folder with prompt "Please select the directory of the project folder :")
+
+set New_Project_RootFolderDirectory to (choose folder with prompt "Please select the directory of the project folder :") -- user tell the directory of the future new project folder 
+my write_to_file("var New_Project_RootFolderDirectory = " & New_Project_RootFolderDirectory & " \n \n",logPath,true) -- write in log file the value of New_Project_RootFolderDirectory
+
 
 
 --CREATE THE NEW PROJECT FOLDER
 
 
+
 tell application "Finder"
-	make new folder at New_Project_RootFolderDirectory with properties {name:globalProjectName}
+	make new folder at New_Project_RootFolderDirectory with properties {name:globalProjectName} -- create a new folder at the directory of New_Project_RootFolderDirectory
 end tell
-set New_Project_RootFolderDirectoryText to New_Project_RootFolderDirectory as text
-set New_Project_RootFolder to New_Project_RootFolderDirectoryText & globalProjectName
-set NewProjectFolder to New_Project_RootFolder as text
-set NewProjectFolderPath to POSIX path of New_Project_RootFolder
+
+set New_Project_RootFolderDirectoryText to New_Project_RootFolderDirectory as text -- convert New_Project_RootFolderDirectory to text
+my write_to_file("var New_Project_RootFolderDirectoryText = " & New_Project_RootFolderDirectoryText & " \n \n",logPath,true) -- write in log file the value of New_Project_RootFolderDirectoryText
+
+set New_Project_RootFolder to New_Project_RootFolderDirectoryText & globalProjectName --concatenation of the two variables "New_Project_RootFolderDirectoryText" and "globalProjectName"
+my write_to_file("var New_Project_RootFolder = " & New_Project_RootFolder & " \n \n",logPath,true) -- write in log file the value of New_Project_RootFolder
+
+set NewProjectFolder to New_Project_RootFolder as text -- convert New_Project_RootFolder to text
+my write_to_file("var NewProjectFolder = " & NewProjectFolder & " \n \n",logPath,true) -- write in log file the value of NewProjectFolder
+
+set NewProjectFolderPath to POSIX path of New_Project_RootFolder -- give the POSIX path of New_Project_RootFolder
+my write_to_file("var NewProjectFolderPath = " & NewProjectFolderPath & " \n \n",logPath,true) -- write in log file the value of NewProjectFolderPath
+
 
 
 --IMPORT THE TEMPLATE FOLDERS FROM NAS
