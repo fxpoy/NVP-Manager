@@ -1,4 +1,4 @@
---for export : BUILD with APPLESCRIPT => "command"+"maj"+"B" => SCRIPT BUNDLE
+--for export in scptd : BUILD with APPLESCRIPT => "command"+"maj"+"B" => SCRIPT BUNDLE
 
 
 
