@@ -550,5 +550,4 @@ on run {input, parameters}
 	end if
 	
 	
-	return AllClientList
 end run
