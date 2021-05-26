@@ -115,12 +115,16 @@ my write_to_file("var New_Project_RootFolder = " & New_Project_RootFolder & " \n
 set NewProjectFolder to New_Project_RootFolder as text -- convert New_Project_RootFolder to text
 my write_to_file("var NewProjectFolder = " & NewProjectFolder & " \n \n",logPath,true) -- write in log file the value of NewProjectFolder
 
+
 set NewProjectFolderPath to POSIX path of New_Project_RootFolder -- give the POSIX path of New_Project_RootFolder
 my write_to_file("var NewProjectFolderPath = " & NewProjectFolderPath & " \n \n",logPath,true) -- write in log file the value of NewProjectFolderPath
 
 
 
+
 --IMPORT THE TEMPLATE FOLDERS FROM NAS
+
+
 
 set templateFolderSources to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/02_TREEFOLDER_VIDEO_PROJECT" -- give the path of templateFolderSources
 my write_to_file("\n \n --IMPORT THE TEMPLATE FOLDERS FROM NAS \n \n var templateFolderSources = " & templateFolderSources & " \n \n",logPath,true) -- write in log file the value of templateFolderSources
