@@ -3,9 +3,38 @@
 -- ceci est un test
 
 -- utiliser chemin relatif pour apperler script (chemin original = chemin ou se trouve le fichier script.applescript)
+-- this data = text que j'ai envie d'ecrire
+-- target_file = chemin pour le fichier text
+-- append_data = false (ecrase le fichier text) / true (ajoute à la fin du fichier)
+--
+on write_to_file(this_data, target_file, append_data)
+	
+	set the target_file to the target_file as string
+	set the open_target_file to open for access POSIX file target_file with write permission
+	if append_data is false then set eof of the open_target_file to 0
+	write this_data to the open_target_file starting at eof
+ 	close access the open_target_file
+ 		
+end write_to_file
+
+-- CALL TO WRITE ON THE LOG FILE
+
+
+my write_to_file("test log \n",".log",false) 
+
+
+-- IMPORT DU FICHIER DEFINNISSANT LES VARIABLES DE BASE
+
+
+set baseVariables to (load script "base_variables/base_variables.scptd")
 
 --RESSOURCES ICON (.icns) ACCES FROM NAS
-do shell script "echo coucou"
+
+
+--set iconNVPManagerFolderPpath to POSIX file (iconNVPManagerFolderPpath of baseVariables) as alias
+
+--set iconNVPManagerFolder to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo Dossier NVP Manager.icns"
+--set iconNVPManagerFolderPpath to POSIX file iconNVPManagerFolder as alias
 
 set iconAppFolder to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo dossier Application.icns"
 set iconAppFolderPpath to POSIX file iconAppFolder as alias
@@ -21,6 +50,17 @@ set iconSoundFolderPpath to POSIX file iconSoundFolder as alias
 
 set iconRAWFolder to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo dossier photo.icns"
 set iconRAWFolderPpath to POSIX file iconRAWFolder as alias
+
+-- RUN TO CREATE THE NEW PROJECT FOLDER
+
+set createNewProjectFolder to (display dialog "Hello there! Do you want to create a New Video Project folder ?" buttons {"No","Yes"} default button 2 with icon (iconNVPManagerFolderPpath of baseVariables))
+if button returned of createNewProjectFolder = "No" then
+	my write_to_file("exiting app\n",".log",true)
+	return 
+end if
+
+
+
 
 
 --CHOOSE THE CLIENT NAME FOR THE VIDEO PROJECT
@@ -548,4 +588,3 @@ end if
 if button returned of ChooseWorkflow = "Cancel" then
 	
 end if
-
