@@ -28,28 +28,7 @@ my write_to_file("test log \n",".log",false)
 
 set baseVariables to (load script "base_variables/base_variables.scptd")
 
---RESSOURCES ICON (.icns) ACCES FROM NAS
 
-
---set iconNVPManagerFolderPpath to POSIX file (iconNVPManagerFolderPpath of baseVariables) as alias
-
---set iconNVPManagerFolder to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo Dossier NVP Manager.icns"
---set iconNVPManagerFolderPpath to POSIX file iconNVPManagerFolder as alias
-
-set iconAppFolder to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo dossier Application.icns"
-set iconAppFolderPpath to POSIX file iconAppFolder as alias
-
-set iconRessourcesFolder to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo dossier ressources.icns"
-set iconRessourcesFolderPpath to POSIX file iconRessourcesFolder as alias
-
-set iconVideoFolder to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo dossier video.icns"
-set iconVideoFolderPpath to POSIX file iconVideoFolder as alias
-
-set iconSoundFolder to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo dossier Son.icns"
-set iconSoundFolderPpath to POSIX file iconSoundFolder as alias
-
-set iconRAWFolder to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo dossier photo.icns"
-set iconRAWFolderPpath to POSIX file iconRAWFolder as alias
 
 -- RUN TO CREATE THE NEW PROJECT FOLDER
 
@@ -76,7 +55,7 @@ set clientName to (choose from list allClientName with title "Video project name
 --ASK FOR THE PROJECT NAME
 
 
-set projectName to text returned of (display dialog "name of the project :" buttons {"Cancel", "OK"} default button 2 default answer "" with icon iconRessourcesFolderPpath) as text
+set projectName to text returned of (display dialog "name of the project :" buttons {"Cancel", "OK"} default button 2 default answer "" with icon (iconRessourcesFolderPpath of baseVariables)) as text
 
 
 --NAME OF THE GLOBAL PROJECT FOLDER 
@@ -128,7 +107,7 @@ end tell
 --ZONE IMPORT MEDIAS
 
 
-set importMediaFromSet to (display dialog "Import MEDIAS FROM SET in the Project folder ?" buttons {"Cancel", "Yes", "Skip"} default button 2 with icon iconRessourcesFolderPpath)
+set importMediaFromSet to (display dialog "Import MEDIAS FROM SET in the Project folder ?" buttons {"Cancel", "Yes", "Skip"} default button 2 with icon (iconRessourcesFolderPpath of baseVariables))
 
 
 --IMPORT MEDIAS = YES
@@ -140,7 +119,7 @@ if button returned of importMediaFromSet = "Yes" then
 	--ZONE IMPORT VIDEO RUSHES
 	
 	
-	set importVideoRushesStep to (display dialog "Import Video rushes from set in the Project folder ?" buttons {"Yes", "No"} default button 1 with icon iconVideoFolderPpath)
+	set importVideoRushesStep to (display dialog "Import Video rushes from set in the Project folder ?" buttons {"Yes", "No"} default button 1 with icon (iconVideoFolderPpath of baseVariables))
 	
 	
 	-- IMPORT VIDEO RUSHES = YES
@@ -149,7 +128,7 @@ if button returned of importMediaFromSet = "Yes" then
 	if button returned of importVideoRushesStep = "Yes" then
 		set VideoRushesSourceFolder to (choose file with prompt "Please select the original Video rushes to import in the project folder :" with multiple selections allowed)
 		set VideoRushesDestinationFolder to (NewProjectFolder & ":02_MEDIAS FROM SET:VIDEO RUSHES") as alias
-		set manipulationVideofiles to (display dialog "Choose your manipulating finder files for the Video rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon iconVideoFolderPpath)
+		set manipulationVideofiles to (display dialog "Choose your manipulating finder files for the Video rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon (iconVideoFolderPpath of baseVariables))
 		if button returned of manipulationVideofiles = "Duplicate files" then
 			tell application "Finder"
 				duplicate VideoRushesSourceFolder to VideoRushesDestinationFolder
@@ -173,7 +152,7 @@ if button returned of importMediaFromSet = "Yes" then
 		--ZONE IMPORT VIDEO RUSHES =YES //> ZONE IMPORT AUDIO RUSHES
 		
 		
-		set importAudioRushesStep to (display dialog "Import External Audio rushes from set in the Project folder ?" buttons {"Skip Audio and RAW", "Yes", "No"} default button 3 with icon iconSoundFolderPpath)
+		set importAudioRushesStep to (display dialog "Import External Audio rushes from set in the Project folder ?" buttons {"Skip Audio and RAW", "Yes", "No"} default button 3 with icon (iconSoundFolderPpath of baseVariables))
 		
 		
 		-- IMPORT VIDEO RUSHES = YES //> IMPORT AUDIO RUSHES = YES
@@ -183,7 +162,7 @@ if button returned of importMediaFromSet = "Yes" then
 		if button returned of importAudioRushesStep = "Yes" then
 			set AudioRushesSourceFolder to (choose file with prompt "Please select the original Video rushes to import in the project folder :" with multiple selections allowed)
 			set AudioRushesDestinationFolder to (NewProjectFolder & ":02_MEDIAS FROM SET:AUDIO RUSHES") as alias
-			set manipulationAudiofiles to (display dialog "Choose your manipulating finder files for the Audio rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon iconSoundFolderPpath)
+			set manipulationAudiofiles to (display dialog "Choose your manipulating finder files for the Audio rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon (iconSoundFolderPpath of baseVariables))
 			if button returned of manipulationAudiofiles = "Duplicate files" then
 				tell application "Finder"
 					duplicate AudioRushesSourceFolder to AudioRushesDestinationFolder
@@ -207,7 +186,7 @@ if button returned of importMediaFromSet = "Yes" then
 			-- IMPORT VIDEO RUSHES = YES //> IMPORT AUDIO RUSHES = YES //> ZONE IMPORT RAW
 			
 			
-			set importPhotosStep to (display dialog "Import RAW Photos from set in the Project folder ?" buttons {"Yes", "No"} default button 2 with icon iconRAWFolderPpath)
+			set importPhotosStep to (display dialog "Import RAW Photos from set in the Project folder ?" buttons {"Yes", "No"} default button 2 with icon (iconRAWFolderPpath of baseVariables))
 			
 			
 			-- IMPORT VIDEO RUSHES = YES //> IMPORT AUDIO RUSHES = YES //> IMPORT RAW = YES
@@ -218,7 +197,7 @@ if button returned of importMediaFromSet = "Yes" then
 				do shell script "mv " & (quoted form of (NewProjectFolderPath & "/_00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/._00_RESSOURCES_ALGO"))
 				set PhotoSourceFolder to (choose file with prompt "Please select the original Video rushes to import in the project folder :" with multiple selections allowed)
 				set PhotoDestinationFolder to (NewProjectFolder & ":02_MEDIAS FROM SET:_RAW PHOTOS") as alias
-				set manipulationPhotofiles to (display dialog "Choose your manipulating finder files for the Audio rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon iconRAWFolderPpath)
+				set manipulationPhotofiles to (display dialog "Choose your manipulating finder files for the Audio rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon (iconRAWFolderPpath of baseVariables))
 				if button returned of manipulationPhotofiles = "Duplicate files" then
 					tell application "Finder"
 						duplicate PhotoSourceFolder to PhotoDestinationFolder
@@ -262,7 +241,7 @@ if button returned of importMediaFromSet = "Yes" then
 			-- IMPORT VIDEO RUSHES = YES //> IMPORT AUDIO RUSHES = NO //> ZONE IMPORT RAW
 			
 			
-			set importPhotosStep to (display dialog "Import RAW Photos from set in the Project folder ?" buttons {"Yes", "No"} default button 1 with icon iconRAWFolderPpath)
+			set importPhotosStep to (display dialog "Import RAW Photos from set in the Project folder ?" buttons {"Yes", "No"} default button 1 with icon (iconRAWFolderPpath of baseVariables))
 			
 			
 			-- IMPORT VIDEO RUSHES = YES //> IMPORT AUDIO RUSHES = NO //> IMPORT RAW = YES
@@ -272,7 +251,7 @@ if button returned of importMediaFromSet = "Yes" then
 				do shell script "mv " & (quoted form of (NewProjectFolderPath & "/_00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/._00_RESSOURCES_ALGO"))
 				set PhotoSourceFolder to (choose file with prompt "Please select the original Video rushes to import in the project folder :" with multiple selections allowed)
 				set PhotoDestinationFolder to (NewProjectFolder & ":02_MEDIAS FROM SET:_RAW PHOTOS") as alias
-				set manipulationPhotofiles to (display dialog "Choose your manipulating finder files for the Audio rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon iconRAWFolderPpath)
+				set manipulationPhotofiles to (display dialog "Choose your manipulating finder files for the Audio rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon (iconRAWFolderPpath of baseVariables))
 				if button returned of manipulationPhotofiles = "Duplicate files" then
 					tell application "Finder"
 						duplicate PhotoSourceFolder to PhotoDestinationFolder
@@ -328,7 +307,7 @@ if button returned of importMediaFromSet = "Yes" then
 		--ZONE IMPORT VIDEO RUSHES = NO //> ZONE IMPORT AUDIO RUSHES
 		
 		
-		set importAudioRushesStep to (display dialog "Import External Audio rushes from set in the Project folder ?" buttons {"Skip Audio and RAW", "Yes", "No"} default button 3 with icon iconSoundFolderPpath)
+		set importAudioRushesStep to (display dialog "Import External Audio rushes from set in the Project folder ?" buttons {"Skip Audio and RAW", "Yes", "No"} default button 3 with icon (iconSoundFolderPpath of baseVariables))
 		
 		
 		--ZONE IMPORT VIDEO RUSHES = NO //> IMPORT AUDIO RUSHES = YES
@@ -337,7 +316,7 @@ if button returned of importMediaFromSet = "Yes" then
 		if button returned of importAudioRushesStep = "Yes" then
 			set AudioRushesSourceFolder to (choose file with prompt "Please select the original Video rushes to import in the project folder :" with multiple selections allowed)
 			set AudioRushesDestinationFolder to (NewProjectFolder & ":02_MEDIAS FROM SET:AUDIO RUSHES") as alias
-			set manipulationAudiofiles to (display dialog "Choose your manipulating finder files for the Audio rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon iconSoundFolderPpath)
+			set manipulationAudiofiles to (display dialog "Choose your manipulating finder files for the Audio rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon (iconSoundFolderPpath of baseVariables))
 			if button returned of manipulationAudiofiles = "Duplicate files" then
 				tell application "Finder"
 					duplicate AudioRushesSourceFolder to AudioRushesDestinationFolder
@@ -361,7 +340,7 @@ if button returned of importMediaFromSet = "Yes" then
 			--ZONE IMPORT VIDEO RUSHES = NO //> IMPORT AUDIO RUSHES = YES //> ZONE IMPORT RAW
 			
 			
-			set importPhotosStep to (display dialog "Import RAW Photos from set in the Project folder ?" buttons {"Yes", "No"} default button 1 with icon iconRAWFolderPpath)
+			set importPhotosStep to (display dialog "Import RAW Photos from set in the Project folder ?" buttons {"Yes", "No"} default button 1 with icon (iconRAWFolderPpath of baseVariables))
 			
 			
 			--ZONE IMPORT VIDEO RUSHES = NO //> IMPORT AUDIO RUSHES = YES //> IMPORT RAW = YES
@@ -371,7 +350,7 @@ if button returned of importMediaFromSet = "Yes" then
 				do shell script "mv " & (quoted form of (NewProjectFolderPath & "/_00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/._00_RESSOURCES_ALGO"))
 				set PhotoSourceFolder to (choose file with prompt "Please select the original Video rushes to import in the project folder :" with multiple selections allowed)
 				set PhotoDestinationFolder to (NewProjectFolder & ":02_MEDIAS FROM SET:_RAW PHOTOS") as alias
-				set manipulationPhotofiles to (display dialog "Choose your manipulating finder files for the Audio rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon iconRAWFolderPpath)
+				set manipulationPhotofiles to (display dialog "Choose your manipulating finder files for the Audio rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon (iconRAWFolderPpath of baseVariables))
 				if button returned of manipulationPhotofiles = "Duplicate files" then
 					tell application "Finder"
 						duplicate PhotoSourceFolder to PhotoDestinationFolder
@@ -414,7 +393,7 @@ if button returned of importMediaFromSet = "Yes" then
 			--ZONE IMPORT VIDEO RUSHES = NO //> IMPORT AUDIO RUSHES = NO //> ZONE IMPORT RAW
 			
 			
-			set importPhotosStep to (display dialog "Import RAW Photos rushes from set in the Project folder ?" buttons {"Yes", "No"} default button 1 with icon iconRAWFolderPpath)
+			set importPhotosStep to (display dialog "Import RAW Photos rushes from set in the Project folder ?" buttons {"Yes", "No"} default button 1 with icon (iconRAWFolderPpath of baseVariables))
 			
 			
 			--ZONE IMPORT VIDEO RUSHES = NO //> IMPORT AUDIO RUSHES = NO //> IMPORT RAW = YES
@@ -424,7 +403,7 @@ if button returned of importMediaFromSet = "Yes" then
 				do shell script "mv " & (quoted form of (NewProjectFolderPath & "/_00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/._00_RESSOURCES_ALGO"))
 				set PhotoSourceFolder to (choose file with prompt "Please select the original Video rushes to import in the project folder :" with multiple selections allowed)
 				set PhotoDestinationFolder to (NewProjectFolder & ":02_MEDIAS FROM SET:_RAW PHOTOS") as alias
-				set manipulationPhotofiles to (display dialog "Choose your manipulating finder files for the Audio rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon iconRAWFolderPpath)
+				set manipulationPhotofiles to (display dialog "Choose your manipulating finder files for the Audio rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon (iconRAWFolderPpath of baseVariables))
 				if button returned of manipulationPhotofiles = "Duplicate files" then
 					tell application "Finder"
 						duplicate PhotoSourceFolder to PhotoDestinationFolder
@@ -497,7 +476,7 @@ end if
 --ZONE CHOOSE WORKFLOW
 
 
-set ChooseWorkflow to (display dialog "Choose Workflow(s) for the Project ? " buttons {"Cancel", "Yes", "Skip"} default button 2 with icon iconAppFolderPpath)
+set ChooseWorkflow to (display dialog "Choose Workflow(s) for the Project ? " buttons {"Cancel", "Yes", "Skip"} default button 2 with icon (iconAppFolderPpath of baseVariables))
 
 set ProjectFolder to (NewProjectFolderPath & "/01_PROJECT")
 
