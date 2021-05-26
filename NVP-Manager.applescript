@@ -39,7 +39,7 @@ set baseVariables to (load script baseVariablesPath) -- call of the script "base
 
 set logPath to scriptPath & "/.log" -- create a variable for the path of the log file (name = ".log")
 
-my write_to_file("starting script \n \n",logPath,false) -- anounce to the starting of the scrip
+my write_to_file("\n \n -- CALL TO WRITE ON THE LOG FILE \n \n starting script \n \n",logPath,false) -- anounce to the starting of the scrip
 
 
 
@@ -50,7 +50,7 @@ my write_to_file("starting script \n \n",logPath,false) -- anounce to the starti
 set createNewProjectFolder to (display dialog "Hello there! Do you want to create a New Video Project folder ?" buttons {"No","Yes"} default button 2 with icon (iconNVPManagerFolderPpath of baseVariables))
 if button returned of createNewProjectFolder = "No" then
 
-	my write_to_file("exiting app on the display dialog 'Hello there! Do you want to create a New Video Project folder ?' \n \n",logPath,true) -- write in log file the exit of the app "NVP Manager"
+	my write_to_file("\n \n -- RUN TO CREATE THE NEW PROJECT FOLDER \n \n exiting app on the display dialog 'Hello there! Do you want to create a New Video Project folder ?' \n \n",logPath,true) -- write in log file the exit of the app "NVP Manager"
 
 	return 
 end if
@@ -64,7 +64,7 @@ end if
 set AllClientList to do shell script "find /Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/01_CLIENT_NAME -mindepth 1  -maxdepth 1 -type d -exec basename {} \\; | grep -v 00_ | grep -v Corbeille | sort"
 set AppleScript's text item delimiters to {return & linefeed, return, linefeed, character id 8233, character id 8232}
 set allClientName to (every text item in AllClientList) as list
-my write_to_file("var allClientName =\n{" & allClientName & "} \n \n",logPath,true) -- write in log file the value of allClientName
+my write_to_file("\n \n --CHOOSE THE CLIENT NAME OF THE VIDEO PROJECT \n \n var allClientName =\n{" & allClientName & "} \n \n",logPath,true) -- write in log file the value of allClientName
 
 set clientName to (choose from list allClientName with title "Video project name" with prompt "Select the Client name of the video project :") as text
 my write_to_file("var clientName = " & clientName & " \n \n",logPath,true) -- write in log file the value of clientName
@@ -76,7 +76,7 @@ my write_to_file("var clientName = " & clientName & " \n \n",logPath,true) -- wr
 
 
 set projectName to text returned of (display dialog "name of the project :" buttons {"Cancel", "OK"} default button 2 default answer "" with icon (iconRessourcesFolderPpath of baseVariables)) as text
-my write_to_file("var projectName = " & projectName & " \n \n",logPath,true) -- write in log file the value of projectName
+my write_to_file("\n \n --ASK FOR THE PROJECT NAME \n \n var projectName = " & projectName & " \n \n",logPath,true) -- write in log file the value of projectName
 
 
 
@@ -85,7 +85,7 @@ my write_to_file("var projectName = " & projectName & " \n \n",logPath,true) -- 
 
 
 set globalProjectName to clientName & "_" & projectName as text -- concatenation of the two variables : "clientName" and "projectName"
-my write_to_file("var globalProjectName = " & globalProjectName & " \n \n",logPath,true) -- write in log file the value of globalProjectName
+my write_to_file("\n \n --NAME OF THE GLOBAL PROJECT FOLDER \n \n var globalProjectName = " & globalProjectName & " \n \n",logPath,true) -- write in log file the value of globalProjectName
 
 
 
@@ -94,7 +94,7 @@ my write_to_file("var globalProjectName = " & globalProjectName & " \n \n",logPa
 
 
 set New_Project_RootFolderDirectory to (choose folder with prompt "Please select the directory of the project folder :") -- user tell the directory of the future new project folder 
-my write_to_file("var New_Project_RootFolderDirectory = " & New_Project_RootFolderDirectory & " \n \n",logPath,true) -- write in log file the value of New_Project_RootFolderDirectory
+my write_to_file("\n \n --ASK FOR THE DIRECTORY OF THE GLOBAL PROJECT FOLDER \n \n var New_Project_RootFolderDirectory = " & New_Project_RootFolderDirectory & " \n \n",logPath,true) -- write in log file the value of New_Project_RootFolderDirectory
 
 
 
@@ -107,7 +107,7 @@ tell application "Finder"
 end tell
 
 set New_Project_RootFolderDirectoryText to New_Project_RootFolderDirectory as text -- convert New_Project_RootFolderDirectory to text
-my write_to_file("var New_Project_RootFolderDirectoryText = " & New_Project_RootFolderDirectoryText & " \n \n",logPath,true) -- write in log file the value of New_Project_RootFolderDirectoryText
+my write_to_file("\n \n --CREATE THE NEW PROJECT FOLDER \n \n var New_Project_RootFolderDirectoryText = " & New_Project_RootFolderDirectoryText & " \n \n",logPath,true) -- write in log file the value of New_Project_RootFolderDirectoryText
 
 set New_Project_RootFolder to New_Project_RootFolderDirectoryText & globalProjectName --concatenation of the two variables "New_Project_RootFolderDirectoryText" and "globalProjectName"
 my write_to_file("var New_Project_RootFolder = " & New_Project_RootFolder & " \n \n",logPath,true) -- write in log file the value of New_Project_RootFolder
@@ -122,11 +122,17 @@ my write_to_file("var NewProjectFolderPath = " & NewProjectFolderPath & " \n \n"
 
 --IMPORT THE TEMPLATE FOLDERS FROM NAS
 
-set templateFolderSources to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/02_TREEFOLDER_VIDEO_PROJECT"
-set templateFolderSourcesPpath to POSIX file templateFolderSources
-tell application "Finder" to set contentTemplateFolderSourcesPpath to get the entire contents of folder templateFolderSourcesPpath
+set templateFolderSources to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/02_TREEFOLDER_VIDEO_PROJECT" -- give the path of templateFolderSources
+my write_to_file("\n \n --IMPORT THE TEMPLATE FOLDERS FROM NAS \n \n var templateFolderSources = " & templateFolderSources & " \n \n",logPath,true) -- write in log file the value of templateFolderSources
+
+set templateFolderSourcesPpath to POSIX file templateFolderSources -- convert in POSIX path templateFolderSources
+my write_to_file("var templateFolderSourcesPpath = " & templateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of templateFolderSourcesPpath
+
+tell application "Finder" to set contentTemplateFolderSourcesPpath to get the entire contents of folder templateFolderSourcesPpath -- give the contents of the folder in the path templateFolderSourcesPpath
+
 tell application "Finder"
-	duplicate contentTemplateFolderSourcesPpath to NewProjectFolder
+	duplicate contentTemplateFolderSourcesPpath to NewProjectFolder -- duplicate the contents of contentTemplateFolderSourcesPpath in NewProjectFolder 
+	my write_to_file("Contents of the templateFolderSources duplicate in " & NewProjectFolderPath & " \n \n",logPath,true) -- write in log file the value of templateFolderSources
 end tell
 
 
