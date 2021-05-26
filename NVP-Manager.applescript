@@ -1,12 +1,6 @@
+--CREATE FONCTION TU USE LOG
 
---now the script is on github TEST 3
--- ceci est un test
 
--- utiliser chemin relatif pour apperler script (chemin original = chemin ou se trouve le fichier script.applescript)
--- this data = text que j'ai envie d'ecrire
--- target_file = chemin pour le fichier text
--- append_data = false (ecrase le fichier text) / true (ajoute à la fin du fichier)
---
 on write_to_file(this_data, target_file, append_data)
 	try
 		set the target_file to the target_file as string
@@ -24,15 +18,12 @@ on write_to_file(this_data, target_file, append_data)
 end write_to_file
 
 
-
-
--- IMPORT DU FICHIER DEFINNISSANT LES VARIABLES DE BASE
+-- IMPORT OF BASE_VARIABLES SCRIPT (.scptd)
 
 
 set scriptPath to POSIX path of ((path to me as text) & "::")
 set baseVariablesPath to (scriptPath & "/base_variables/base_variables.scptd")
 set baseVariables to (load script baseVariablesPath)
-
 
 
 -- CALL TO WRITE ON THE LOG FILE
@@ -52,10 +43,7 @@ if button returned of createNewProjectFolder = "No" then
 end if
 
 
-
-
-
---CHOOSE THE CLIENT NAME FOR THE VIDEO PROJECT
+--CHOOSE THE CLIENT NAME OF THE VIDEO PROJECT
 
 
 set AllClientList to do shell script "find /Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/01_CLIENT_NAME -mindepth 1  -maxdepth 1 -type d -exec basename {} \\; | grep -v 00_ | grep -v Corbeille | sort"
@@ -75,9 +63,6 @@ set projectName to text returned of (display dialog "name of the project :" butt
 
 
 set globalProjectName to clientName & "_" & projectName as text
-
-
--- __MODIF en applescript__
 
 
 --ASK FOR THE DIRECTORY OF THE GLOBAL PROJECT FOLDER
