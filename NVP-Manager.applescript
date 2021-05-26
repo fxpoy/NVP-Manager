@@ -24,10 +24,6 @@ on write_to_file(this_data, target_file, append_data)
 end write_to_file
 
 
--- CALL TO WRITE ON THE LOG FILE
-
-
-my write_to_file("starting script \n",".log",false) 
 
 
 -- IMPORT DU FICHIER DEFINNISSANT LES VARIABLES DE BASE
@@ -39,11 +35,19 @@ set baseVariables to (load script baseVariablesPath)
 
 
 
+-- CALL TO WRITE ON THE LOG FILE
+
+
+set logPath to scriptPath & "/.log"
+my write_to_file("starting script \n",logPath,false) 
+
+
+
 -- RUN TO CREATE THE NEW PROJECT FOLDER
 
 set createNewProjectFolder to (display dialog "Hello there! Do you want to create a New Video Project folder ?" buttons {"No","Yes"} default button 2 with icon (iconNVPManagerFolderPpath of baseVariables))
 if button returned of createNewProjectFolder = "No" then
-	my write_to_file("exiting app\n",".log",true)
+	my write_to_file("exiting app\n",logPath,true)
 	return 
 end if
 
