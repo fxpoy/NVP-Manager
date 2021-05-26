@@ -1,15 +1,6 @@
 on run {input, parameters}
 	--now the script is on github TEST 3
 
-
-	--set AllClientFolderPath to quoted form of "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/01_CLIENT_NAME"
-	
-	set AllClientList to do shell script "find /Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/01_CLIENT_NAME -mindepth 1  -maxdepth 1 -type d -exec basename {} \\; | grep -v 00_ | grep -v Corbeille | sort"
-	set AppleScript's text item delimiters to {return & linefeed, return, linefeed, character id 8233, character id 8232}
-	set allClientName to (every text item in AllClientList) as list
-	set clientName to (choose from list allClientName with title "Video project name" with prompt "Select the Client name of the video project :") as text
-	
-	
 	
 	--RESSOURCES ICON (.icns) ACCES FROM NAS
 	
@@ -28,6 +19,17 @@ on run {input, parameters}
 	
 	set iconRAWFolder to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo dossier photo.icns"
 	set iconRAWFolderPpath to POSIX file iconRAWFolder as alias
+	
+
+
+	--CHOOSE THE CLIENT NAME FOR THE VIDEO PROJECT
+
+	
+	set AllClientList to do shell script "find /Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/01_CLIENT_NAME -mindepth 1  -maxdepth 1 -type d -exec basename {} \\; | grep -v 00_ | grep -v Corbeille | sort"
+	set AppleScript's text item delimiters to {return & linefeed, return, linefeed, character id 8233, character id 8232}
+	set allClientName to (every text item in AllClientList) as list
+	set clientName to (choose from list allClientName with title "Video project name" with prompt "Select the Client name of the video project :") as text
+	
 	
 	
 	--ASK FOR THE PROJECT NAME
