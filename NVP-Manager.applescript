@@ -33,7 +33,9 @@ my write_to_file("starting script \n",".log",false)
 -- IMPORT DU FICHIER DEFINNISSANT LES VARIABLES DE BASE
 
 
-set baseVariables to (load script "base_variables/base_variables.scptd")
+set scriptPath to POSIX path of ((path to me as text) & "::")
+set baseVariablesPath to (scriptPath & "/base_variables/base_variables.scptd")
+set baseVariables to (load script baseVariablesPath)
 
 
 
