@@ -1,5 +1,5 @@
 on run {input, parameters}
-	--now the script is on github TEST 2
+	--now the script is on github TEST 3
 
 
 	--set AllClientFolderPath to quoted form of "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/01_CLIENT_NAME"
