@@ -1,5 +1,6 @@
 on run {input, parameters}
 	--now the script is on github TEST 3
+	-- ceci est un test
 
 	
 	--RESSOURCES ICON (.icns) ACCES FROM NAS
