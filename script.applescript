@@ -2,6 +2,7 @@ on run {input, parameters}
 	--now the script is on github TEST 3
 	-- ceci est un test
 
+-- utiliser chemin relatif pour apperler script (chemin original = chemin ou se trouve le fichier script.applescript)
 	
 	--RESSOURCES ICON (.icns) ACCES FROM NAS
 	
