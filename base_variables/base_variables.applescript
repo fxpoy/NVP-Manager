@@ -17,3 +17,10 @@ property iconVideoFolderPpath : POSIX file "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RE
 property iconSoundFolderPpath : POSIX file "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo dossier Son.icns" as alias
 
 property iconRAWFolderPpath : POSIX file "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo dossier photo.icns" as alias
+
+
+property iconAppDavinciResolvePpath : POSIX file "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo DaVinci Resolve.icns" as alias
+
+property iconAppPremiereProPpath : POSIX file "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo Premiere Pro.icns" as alias
+
+property iconAppAfterEffectPpath : POSIX file "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/03_ICON_LOGO/Logo After Effect.icns" as alias
