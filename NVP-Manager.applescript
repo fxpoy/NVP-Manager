@@ -535,7 +535,7 @@ if button returned of ChooseWorkflow = "Yes" then
 	-- ZONE DAVINCI
 	
 	
-	set DaVinciWorkflow to (display dialog "Will you work on DaVinci Resolve workflow" buttons {"No", "Yes"} default button 2 with icon ":Applications:DaVinci Resolve:DaVinci Resolve.app:Contents:Resources:Resolve.icns" as alias)
+	set DaVinciWorkflow to (display dialog "Will you work on DaVinci Resolve workflow" buttons {"No", "Yes"} default button 2 with icon (iconAppDavinciResolvePpath of baseVariables))
 	set DaVinciRessourceFolder to (NewProjectFolderPath & "/01_PROJECT/_00_RESSOURCES_ALGO/DaVinci Resolve")
 	set DaVinciFolder to (ProjectFolder & "/DaVinci Resolve")
 	set DaVinci4Kfile to (DaVinciFolder & "/_00_RESSOURCES_ALGO/Template_4K_UHD_v1.drp")
@@ -561,7 +561,7 @@ if button returned of ChooseWorkflow = "Yes" then
 	-- ZONE PREMIERE PRO
 	
 	
-	set PremiereProWorkflow to (display dialog "Will you work on Premiere Pro workflow" buttons {"No", "Yes"} default button 2 with icon ":Applications:Adobe Premiere Pro 2021:Adobe Premiere Pro 2021.app:Contents:Resources:pr_app_icons.icns" as alias)
+	set PremiereProWorkflow to (display dialog "Will you work on Premiere Pro workflow" buttons {"No", "Yes"} default button 2 with icon (iconAppPremiereProPpath of baseVariables))
 	set PremiereProRessourceFolder to (NewProjectFolderPath & "/01_PROJECT/_00_RESSOURCES_ALGO/Premiere Pro")
 	set PremiereProFolder to (ProjectFolder & "/Premiere Pro")
 	set PremiereProfile to (PremiereProFolder & "/_00_RESSOURCES_ALGO/Template_v1.prproj")
@@ -580,7 +580,7 @@ if button returned of ChooseWorkflow = "Yes" then
 	-- ZONE AFTER EFFECT
 	
 	
-	set AfterEffectWorkflow to (display dialog "Will you work on After Effect workflow" buttons {"No", "Yes"} default button 2 with icon ":Applications:Adobe After Effects 2021:Adobe After Effects 2021.app:Contents:Resources:ae_app_stable.icns" as alias)
+	set AfterEffectWorkflow to (display dialog "Will you work on After Effect workflow" buttons {"No", "Yes"} default button 2 with icon (iconAppAfterEffectPpath of baseVariables))
 	set AfterEffectRessourceFolder to (NewProjectFolderPath & "/01_PROJECT/_00_RESSOURCES_ALGO/After Effect")
 	set AfterEffectFolder to (ProjectFolder & "/After Effect")
 	set AfterEffectFile to (AfterEffectFolder & "/_00_RESSOURCES_ALGO/Template_v1.aep")
