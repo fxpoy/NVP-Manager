@@ -122,6 +122,37 @@ my write_to_file("var NewProjectFolderPath = " & NewProjectFolderPath & " \n \n"
 
 
 
+
+
+
+
+
+
+
+-- ALTERNATIVE METOD = créer un fichier text unique contenant la valeur de "NewProjectFolderPath"
+
+
+
+on getChoice()
+    set res to NewProjectFolderPath
+    return res
+end getChoice
+
+
+set CHOICE to getCHOICE1() of baseVariables
+
+set resultTest to (display dialog "Import MEDIAS FROM SET in the Project folder ?" buttons {"Cancel", "Yes", "Skip"} default button 2 with icon (iconRessourcesFolderPpath of baseVariables)) 
+my write_to_file("\n \n TES communication inverse valeur variable = " & resultTest &" \n \n var templateFolderSources = " & templateFolderSources & " \n \n",logPath,true)
+
+
+
+
+
+
+
+
+
+
 --IMPORT THE TEMPLATE FOLDERS FROM NAS
 
 
@@ -533,7 +564,7 @@ if button returned of ChooseWorkflow = "Yes" then
 	
 	
 	-- ZONE DAVINCI
-	
+
 	
 	set DaVinciWorkflow to (display dialog "Will you work on DaVinci Resolve workflow" buttons {"No", "Yes"} default button 2 with icon (iconAppDavinciResolvePpath of baseVariables))
 	set DaVinciRessourceFolder to (NewProjectFolderPath & "/01_PROJECT/_00_RESSOURCES_ALGO/DaVinci Resolve")
