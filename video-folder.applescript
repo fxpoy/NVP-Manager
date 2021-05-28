@@ -1,5 +1,7 @@
 on run {NewProjectFolderPath,NewProjectFolder}
 	
+
+	
 	set scriptPath to POSIX path of ((path to me as text) & "::")  -- create a variable for the parents folder path  of the actual script
 	set baseVariablesPath to (scriptPath & "/base_variables/base_variables.scptd")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
 	set baseVariables to (load script baseVariablesPath) -- call of the script "base_variables.scptd" in the actual script

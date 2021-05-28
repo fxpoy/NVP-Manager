@@ -61,7 +61,7 @@ end if
 
 
 
-set AllClientList to do shell script "find /Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/01_CLIENT_NAME -mindepth 1  -maxdepth 1 -type d -exec basename {} \\; | grep -v 00_ | grep -v Corbeille | sort"
+set AllClientList to do shell script "find /Volumes/ECOMMERCE/VIDEO_PROJECT/._00_RESSOURCES_ALGO/01_CLIENT_NAME -mindepth 1  -maxdepth 1 -type d -exec basename {} \\; | grep -v 00_ | grep -v Corbeille | sort"
 set AppleScript's text item delimiters to {return & linefeed, return, linefeed, character id 8233, character id 8232}
 set allClientName to (every text item in AllClientList) as list
 my write_to_file("\n \n --CHOOSE THE CLIENT NAME OF THE VIDEO PROJECT \n \n var allClientName =\n{" & allClientName & "} \n \n",logPath,true) -- write in log file the value of allClientName
@@ -125,7 +125,7 @@ my write_to_file("var NewProjectFolderPath = " & NewProjectFolderPath & " \n \n"
 
 
 
-set templateFolderSources to "/Volumes/ECOMMERCE/ALGO_VIDEO/_00_RESSOURCES_ALGO/02_TREEFOLDER_VIDEO_PROJECT" -- give the path of templateFolderSources
+set templateFolderSources to "/Volumes/ECOMMERCE/VIDEO_PROJECT/._00_RESSOURCES_ALGO/02_TREEFOLDER_VIDEO_PROJECT" -- give the path of templateFolderSources
 my write_to_file("\n \n --IMPORT THE TEMPLATE FOLDERS FROM NAS \n \n var templateFolderSources = " & templateFolderSources & " \n \n",logPath,true) -- write in log file the value of templateFolderSources
 
 set templateFolderSourcesPpath to POSIX file templateFolderSources -- convert in POSIX path templateFolderSources
@@ -164,7 +164,7 @@ my write_to_file("TEST TES tEST  = " & importMediaFromSet & " \n \n",logPath,tru
 --ZONE CHOOSE WORKFLOW
 
 
-set ChooseWorkflow to (display dialog "Choose Workflow(s) for the Project ? " buttons {"Cancel", "Yes", "Skip"} default button 2 with icon (iconAppFolderPpath of baseVariables))
+set ChooseWorkflow to (display dialog "Choose Workflow(s) for the Project ? " buttons {"Cancel", "Yes", "Skip"} default button 2 with icon (iconAppPpath of baseVariables))
 
 set ProjectFolder to (NewProjectFolderPath & "/01_PROJECT")
 
@@ -190,7 +190,7 @@ if button returned of ChooseWorkflow = "Yes" then
 	
 	if button returned of DaVinciWorkflow = "Yes" then
 		do shell script "mv " & (quoted form of DaVinciRessourceFolder) & " " & (quoted form of ProjectFolder)
-		set DaVinciDefworkflow to (display dialog "Choose your timeline resolution for DaVinci Resolve  :" buttons {"1080p", "4K UHD"} default button 2 with icon ":Applications:DaVinci Resolve:DaVinci Resolve.app:Contents:Resources:Resolve.icns" as alias)
+		set DaVinciDefworkflow to (display dialog "Choose your timeline resolution for DaVinci Resolve  :" buttons {"1080p", "4K UHD"} default button 2 with icon (iconAppDavinciResolvePpath of baseVariables))
 		if button returned of DaVinciDefworkflow = "4K UHD" then
 			do shell script "mv " & (quoted form of DaVinci4Kfile) & " " & (quoted form of DaVinciFolder)
 		end if
