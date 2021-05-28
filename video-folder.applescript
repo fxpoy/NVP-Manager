@@ -8,7 +8,7 @@ on run {NewProjectFolderPath,NewProjectFolder}
 
 
 
-		--ZONE IMPORT MEDIAS
+	--ZONE IMPORT MEDIAS
 
 
 	set importMediaFromSet to (display dialog "Import MEDIAS FROM SET in the Project folder ?" buttons {"Cancel", "Yes", "Skip"} default button 2 with icon (iconMediaFromSetPpath of baseVariables))

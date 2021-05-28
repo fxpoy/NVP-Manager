@@ -43,6 +43,18 @@ my write_to_file("\n \n -- CALL TO WRITE ON THE LOG FILE \n \n starting script \
 
 
 
+
+set projectManagerList to {"add Video rushes", "add Audio rushes", "add RAW photos","add workflow", "add Video ressources", "add Image ressources", "add Audio ressources"}
+set actionProjectManager to (choose from list projectManagerList with title "Project Manager" with prompt "Select what do you want to do :" OK button name {"OK"} cancel button name {"Return"}) as text
+
+set res to (display dialog actionProjectManager buttons {"Don't Continue", "Continue"} default button "Continue" cancel button "Don't Continue")
+
+
+
+
+
+
+
 -- RUN TO CREATE THE NEW PROJECT FOLDER
 
 
