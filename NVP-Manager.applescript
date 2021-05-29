@@ -8,7 +8,7 @@ on run {firstRun}
 
 
 	-- IMPORT OF BASE_VARIABLES SCRIPT (.scptd)
-
+	-- ceci est un test
 
 
 	set scriptPath to POSIX path of ((path to me as text) & "::")  -- create a variable for the parents folder path  of the actual script
