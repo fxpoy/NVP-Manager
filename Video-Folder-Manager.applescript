@@ -46,10 +46,9 @@ on run {firstRun}
 		
 
 		set scriptCreateNewProjectPath to (scriptPath & "1.1-Create-New-Project.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
+		
 		baseVariables's write_to_file(" \n \n call to run the script = " & scriptCreateNewProjectPath & "  \n \n",logPath,true) -- write in log file the calling script
-
-		set importMediaFromSet to (run script scriptCreateNewProjectPath with parameters {scriptPath})
-		baseVariables's write_to_file("TEST TES tEST  = " & importMediaFromSet & " \n \n",logPath,true) -- write in log file the value of NewProjectFolderPath
+		run script scriptCreateNewProjectPath with parameters {scriptPath}
 
 		return
 
