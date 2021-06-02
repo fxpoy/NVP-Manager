@@ -40,6 +40,27 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 
 
+	-- RUN SCRIPT 2.1.3.2-add-Premiere-Pro-Workflow.applescript
+
+
+	if addWorkflowMenuRes is {"add Premiere Pro workflow"} then
+		baseVariables's write_to_file("\n \n  Call to run the script = 2.1.3.2-add-Premiere-Pro-Workflow.applescript \n \n",logPath,true) -- write the result of the choice of the ADD MEDIA FROM SET MENU
+		set scriptAddPremierProWorkflowPath to (scriptPath & "2.1.3.2-add-Premiere-Pro-Workflow.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
+		run script scriptAddPremierProWorkflowPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+	end if
+
+
+	-- RUN SCRIPT 2.1.3.3-add-After-Effect-Workflow.applescript 
+
+
+	if addWorkflowMenuRes is {"add After Effect workflow"} then
+		baseVariables's write_to_file("\n \n  Call to run the script = 2.1.3.3-add-After-Effect-Workflow.applescript \n \n",logPath,true) -- write the result of the choice of the ADD MEDIA FROM SET MENU
+		set scriptAddAfterEffectWorkflowPath to (scriptPath & "2.1.3.3-add-After-Effect-Workflow.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
+		run script scriptAddAfterEffectWorkflowPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+	end if
+
+
+
 	-- RUN THE SCRIPT FILES MANAGER
 
 

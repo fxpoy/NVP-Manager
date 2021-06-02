@@ -17,7 +17,13 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 	baseVariables's write_to_file("\n \n -- CALL TO WRITE ON THE LOG FILE \n \n starting script add video rushes \n \n",logPath,true) -- anounce to the starting of the scrip
 
 
+	-- IMPORT DAVINCI RESOLVE WORKFLOW
 
+	-- set DaVinciResolveTemplateSourceFiles to (choose file with prompt "Please select the original Video rushes to import in the project folder :" of type {"public.movie"} with multiple selections allowed) -- ask for a selection a files of type : video
+	-- baseVariables's write_to_file("var VideoRushesSourceFiles = " & VideoRushesSourceFiles & " \n \n",logPath,true) -- write in log file the value of VideoRushesSourceFiles
+
+	-- Set VideoRushesDestinationFolderPpath to (NewProjectFolderPath & "/02_MEDIAS FROM SET/VIDEO RUSHES")
+	-- baseVariables's write_to_file("var VideoRushesDestinationFolderPpath = " & VideoRushesDestinationFolderPpath & " \n \n",logPath,true) -- write in log file the value of VideoRushesDestinationFolderPpath
 
 	set ProjectFolder to (NewProjectFolderPath & "/01_PROJECT")
 
@@ -93,6 +99,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 				else
 					do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/._00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/_00_RESSOURCES_ALGO"))
 
+					do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/DaVinci Resolve/._00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/DaVinci Resolve/_00_RESSOURCES_ALGO"))
 
 					do shell script "mv " & (quoted form of DaVinciRessourceFolder) & " " & (quoted form of ProjectFolder)
 
