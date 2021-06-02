@@ -56,7 +56,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 					-- RENAME After Effect TEMPLATE FILE
 
-					tell application "Finder"
+					tell application "System Events"
 						set fileAlias to (NewProjectFolder & "01_PROJECT:After Effect:Template_v1.aep") as text
 						set fileAliasPath to (NewProjectFolder & "01_PROJECT:After Effect") as text
 						set theFile to "Template_v1.aep"
@@ -87,7 +87,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 			
 				-- RENAME After Effect TEMPLATE FILE
 
-				tell application "Finder"
+				tell application "System Events"
 					set fileAlias to (NewProjectFolder & "01_PROJECT:After Effect:Template_v1.aep") as text
 					set fileAliasPath to (NewProjectFolder & "01_PROJECT:After Effect") as text
 					set theFile to "Template_v1.aep"

@@ -24,7 +24,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 	set FileManageMenuChoiceList to {"add Medias from set", "add Ressources medias", "add Workflow"} -- list of all the choice for New Project Menu
 
-	set FileManageMenuRes to (choose from list FileManageMenuChoiceList with title "FILE MANAGER" with prompt "Choose your Finder actions\n" OK button name {"OK"} cancel button name {"Cancel"})-- create the variable of the choice for the menu
+	set FileManageMenuRes to (choose from list FileManageMenuChoiceList with title "FILE MANAGER" with prompt "Choose your Finder actions\n" OK button name {"OK"} cancel button name {"Return"})-- create the variable of the choice for the menu
 	baseVariables's write_to_file("\n \n  Result of the New Project Menu = " & FileManageMenuRes & " \n \n",logPath,true) -- write the result of the choice of the File Manager menu
 
 
@@ -66,12 +66,29 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 	-- RETURN TO THE MAIN MENU
 
+	set deleteMenu to (display dialog "You are going to leave the File Manager ! \n \nDo you want to CONFIRM the last changes on " & globalProjectName & " or DELETE the folder " & globalProjectName & " ?" buttons {"Return", "Delete", "Confirm"} default button {"Confirm"} with icon 2) 
+
+	if button returned of deleteMenu = "Delete" then
+		tell application "Finder"
+			delete NewProjectFolder -- delete the project folder 
+		end tell
+	end if
+
+	if button returned of deleteMenu = "Return" then
+		
+		-- RUN THE SCRIPT FILES MANAGER
+
+		set scriptFilesManagerPath to (scriptPath & "2.1-Files-Manager.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
+
+		baseVariables's write_to_file(" \n \n call to run the script = " & scriptFilesManagerPath & "  \n \n",logPath,true) -- write in log file the calling script
+		run script scriptFilesManagerPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+		return
+	end if
 
 
 	set scriptNVPManagerPath to (scriptPath & "/Video-Folder-Manager.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
 	baseVariables's write_to_file(" \n \n call to run the script = " & scriptNVPManagerPath & "  \n \n",logPath,true) -- write in log file the calling script
 	run script scriptNVPManagerPath with parameters false
-
 	return
 
 

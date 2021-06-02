@@ -28,31 +28,33 @@ On run {scriptPath}
 	set allClientName to (every text item in AllClientList) as list
 	baseVariables's write_to_file("\n \n --CHOOSE THE CLIENT NAME OF THE VIDEO PROJECT \n \n var allClientName =\n{" & allClientName & "} \n \n",logPath,true) -- write in log file the value of allClientName
 
-
-	set clientName to (choose from list allClientName with title "Video project name" with prompt "Select the Client name of the video project : "OK button name {"OK"} cancel button name {"Create new Client Folder"}) as text -- Choose client folder from allClientName
+	set clientName to (choose from list allClientName with title "Video project name" with prompt "Select the Client name of the video project : " OK button name {"OK"} cancel button name {"Create new Client Folder"}) as text -- call for the name of the new project
 	baseVariables's write_to_file("var clientName = " & clientName & " \n \n",logPath,true) -- write in log file the value of clientName
 
-	set clientNameMenu to (display dialog "name of the CLIENT :" buttons {"Cancel", "OK"} default button 2 default answer "" with icon (iconRessourcesFolderPpath of baseVariables)) -- set a var to the menu Name of the Client
 
-	if button returned of clientNameMenu = "Cancel"
-		-- RETURN TO THE MAIN MENU
-		set scriptNVPManagerPath to (scriptPath & "/Video-Folder-Manager.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
-		baseVariables's write_to_file(" \n \n call to run the script = " & scriptNVPManagerPath & "  \n \n",logPath,true) -- write in log file the calling script
-		run script scriptNVPManagerPath with parameters false
-		return
-	end if
-
-	set clientName to text returned of clientNameMenu as text -- call for the name of the new project
-	baseVariables's write_to_file("var clientName = " & clientName & " \n \n",logPath,true) -- write in log file the value of clientName
 
 	-- IF DOESN'T EXIST CLIENT FOLDER IN NAS ECOMMERCE CREATE NEW FOLDER ON IT
 
+
+
 	if allClientName does not contain clientName
-		do shell script "mkdir -p " & (quoted form of "/Volumes/ECOMMERCE/VIDEO_PROJECT/" & clientName) -- Create the New Client Folder on NAS
+		set ClientNameMenu to (display dialog "name of the New Client Folder :" buttons {"Cancel", "OK"} default button 2 default answer "" with icon (iconRessourcesFolderPpath of baseVariables)) -- set a var to the menu Name of new client folder
+
+		if button returned of ClientNameMenu = "Cancel"
+			-- RETURN TO THE MAIN MENU
+			set scriptNVPManagerPath to (scriptPath & "/Video-Folder-Manager.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
+			baseVariables's write_to_file(" \n \n call to run the script = " & scriptNVPManagerPath & "  \n \n",logPath,true) -- write in log file the calling script
+			run script scriptNVPManagerPath with parameters false
+			return
+		end if
+
+		set clientName to text returned of ClientNameMenu as text -- call for the name of the new client folder
 	end if
+	baseVariables's write_to_file("var clientName = " & clientName & " \n \n",logPath,true) -- write in log file the value of clientName
 
 
 	--ASK FOR THE PROJECT NAME
+
 
 
 	set projectNameMenu to (display dialog "name of the PROJECT :" buttons {"Cancel", "OK"} default button 2 default answer "" with icon (iconRessourcesFolderPpath of baseVariables)) -- set a var to the menu Name of the Project
@@ -85,7 +87,7 @@ On run {scriptPath}
 
 	set newPojectMenuChoiceList to {"Create on LOCAL", "Create on ECOMMERCE NAS", "Create on EXTERNAL VOLUME"} -- list of all the choice for New Project Menu
 
-	set newPojectMenuRes to (choose from list newPojectMenuChoiceList with title "CREATE NEW PROJECT" with prompt "Where do you want to CREATE a New Project folder?\n" OK button name {"OK"} cancel button name {"Cancel"})-- create the variable of the choice for the Main menu
+	set newPojectMenuRes to (choose from list newPojectMenuChoiceList with title "CREATE NEW PROJECT" with prompt "Where do you want to CREATE a New Project folder?\n" OK button name {"OK"} cancel button name {"Return"})-- create the variable of the choice for the Main menu
 	baseVariables's write_to_file("\n \n  Result of the New Project Menu = " & newPojectMenuRes & " \n \n",logPath,true) -- write the result of the choice of the main menu
 
 
@@ -108,12 +110,32 @@ On run {scriptPath}
 		set NewProjectFolder to POSIX file NewProjectFolderPath
 		baseVariables's write_to_file("\n \n  var NewProjectFolder = " & NewProjectFolder & " \n \n",logPath,true) 
 
+		-- VERIFY IF PROJECT FOLDER DOESN'T EXIST
 
-		-- CREATE NEW PROJECT FOLDER TO THE DIRECTORY
+		set NewProjectFolderPathAsText to NewProjectFolder as text
 
-		do shell script "mkdir -p " & (quoted form of NewProjectFolderPath) -- Create the New Porject Folder
+		tell application "System Events"
+			if (exists (folder NewProjectFolderPathAsText)) then
 
-		--IMPORT  TEMPLATE FOLDERS FROM NAS
+				display dialog "the project " & globalProjectName & "already exist in this directory!"  buttons {"OK"} default button 1 with icon 2
+
+				-- RETURN TO THE MAIN MENU
+
+				set scriptNVPManagerPath to (scriptPath & "/Video-Folder-Manager.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
+				baseVariables's write_to_file(" \n \n call to run the script = " & scriptNVPManagerPath & "  \n \n",logPath,true) -- write in log file the calling script
+				run script scriptNVPManagerPath with parameters false
+				return
+				
+			else
+
+				-- CREATE NEW PROJECT FOLDER TO THE DIRECTORY
+
+				do shell script "mkdir -p " & (quoted form of NewProjectFolderPath) -- Create the New Porject Folder
+
+			end if
+		end tell
+
+		--IMPORT EXPORT TEMPLATE FOLDERS FROM NAS
 
 		set ExportTemplateFolderSourcesPpath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:ZZ_EXPORTS") as text -- call to the path of the "/ZZ_EXPORTS" folder
 		baseVariables's write_to_file("var ExportTemplateFolderSourcesPpath = " & ExportTemplateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of ExportTemplateFolderSourcesPpath
@@ -143,7 +165,7 @@ On run {scriptPath}
 		
 		-- CALL FOR THE DIRECTORY OF THE GLOBAL PROJECT FOLDER
 
-		set rootDirFolder to "Volumes/ECOMMERCE/VIDEO_PROJECT" -- call to the Local directory of global video project folder
+		set rootDirFolder to "/Volumes/ECOMMERCE/VIDEO_PROJECT" -- call to the Local directory of global video project folder
 
 		set NewProjectFolderPath to (rootDirFolder & "/" & clientName & "/" & globalProjectName) -- call to the directory of the futur new project folder
 		baseVariables's write_to_file("\n \n  path of the future New Project Folder = " & NewProjectFolderPath & " \n \n",logPath,true) -- write the result of the choice of the main menu
@@ -152,12 +174,31 @@ On run {scriptPath}
 		set NewProjectFolder to POSIX file NewProjectFolderPath
 		baseVariables's write_to_file("\n \n  var NewProjectFolder = " & NewProjectFolder & " \n \n",logPath,true) 
 
+		-- VERIFY IF PROJECT FOLDER DOESN'T EXIST
 
-		-- CREATE NEW PROJECT FOLDER TO THE DIRECTORY
+		set NewProjectFolderPathAsText to NewProjectFolder as text
 
-		do shell script "mkdir -p " & (quoted form of NewProjectFolderPath) -- Create the New Porject Folder
+		tell application "System Events"
+			if (exists (folder NewProjectFolderPathAsText)) then
 
-		--IMPORT  TEMPLATE FOLDERS FROM NAS
+				display dialog "the project " & globalProjectName & "already exist in this directory!"  buttons {"OK"} default button 1 with icon 2
+
+				-- RETURN TO THE MAIN MENU
+
+				set scriptNVPManagerPath to (scriptPath & "/Video-Folder-Manager.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
+				baseVariables's write_to_file(" \n \n call to run the script = " & scriptNVPManagerPath & "  \n \n",logPath,true) -- write in log file the calling script
+				run script scriptNVPManagerPath with parameters false
+				return
+				
+			else
+
+				-- CREATE NEW PROJECT FOLDER TO THE DIRECTORY
+
+				do shell script "mkdir -p " & (quoted form of NewProjectFolderPath) -- Create the New Porject Folder
+
+			end if
+		end tell
+		--IMPORT EXPORT TEMPLATE FOLDERS FROM NAS
 
 		set ExportTemplateFolderSourcesPpath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:ZZ_EXPORTS") as text -- call to the path of the "/ZZ_EXPORTS" folder
 		baseVariables's write_to_file("var ExportTemplateFolderSourcesPpath = " & ExportTemplateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of ExportTemplateFolderSourcesPpath
@@ -172,7 +213,6 @@ On run {scriptPath}
 
 		baseVariables's write_to_file(" \n \n call to run the script = " & scriptFilesManagerPath & "  \n \n",logPath,true) -- write in log file the calling script
 		run script scriptFilesManagerPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
-
 		return
 
 	end if

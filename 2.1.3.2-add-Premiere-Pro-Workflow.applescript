@@ -56,7 +56,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 					-- RENAME Premiere Pro TEMPLATE FILE
 
-					tell application "Finder"
+					tell application "System Events"
 						set fileAlias to (NewProjectFolder & "01_PROJECT:Premiere Pro:Template_v1.prproj") as text
 						set fileAliasPath to (NewProjectFolder & "01_PROJECT:Premiere Pro") as text
 						set theFile to "Template_v1.prproj"
@@ -87,7 +87,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 			
 				-- RENAME Premiere Pro TEMPLATE FILE
 
-				tell application "Finder"
+				tell application "System Events"
 					set fileAlias to (NewProjectFolder & "01_PROJECT:Premiere Pro:Template_v1.prproj") as text
 					set fileAliasPath to (NewProjectFolder & "01_PROJECT:Premiere Pro") as text
 					set theFile to "Template_v1.prproj"

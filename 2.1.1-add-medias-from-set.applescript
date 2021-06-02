@@ -24,7 +24,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 	set addMediaFromSetMenuChoiceList to {"add Video Rushes", "add Audio Rushes", "add RAW Photos"} -- list of all the choice for New Project Menu
 
-	set addMediaFromSetMenuRes to (choose from list addMediaFromSetMenuChoiceList with title "FILE MANAGER" with prompt "Choose your Finder actions\n" OK button name {"OK"} cancel button name {"Cancel"})-- create the variable of the choice for the menu
+	set addMediaFromSetMenuRes to (choose from list addMediaFromSetMenuChoiceList with title "FILE MANAGER" with prompt "Choose your Finder actions\n" OK button name {"OK"} cancel button name {"Return"})-- create the variable of the choice for the menu
 	baseVariables's write_to_file("\n \n  Result of the  Menu add media from set = " & addMediaFromSetMenuRes & " \n \n",logPath,true) -- write the result of the choice of the ADD MEDIA FROM SET MENU
 
 

@@ -24,7 +24,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 	set addWorkflowMenuChoiceList to {"add DaVinci Resolve workflow", "add Premiere Pro workflow", "add After Effect workflow"} -- list of all the choice for New Project Menu
 
-	set addWorkflowMenuRes to (choose from list addWorkflowMenuChoiceList with title "FILE MANAGER" with prompt "Choose your Workflow\n" OK button name {"OK"} cancel button name {"Cancel"})-- create the variable of the choice for the menu
+	set addWorkflowMenuRes to (choose from list addWorkflowMenuChoiceList with title "FILE MANAGER" with prompt "Choose your Workflow\n" OK button name {"OK"} cancel button name {"Return"})-- create the variable of the choice for the menu
 	baseVariables's write_to_file("\n \n  Result of the  Menu add workflow = " & addWorkflowMenuRes & " \n \n",logPath,true) -- write the result of the choice of the ADD WORKFLOW MENU
 
 

@@ -59,7 +59,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 						-- RENAME 4K TEMPLATE FILE
 
-						tell application "Finder"
+						tell application "System Events"
 							set fileAlias to (NewProjectFolder & "01_PROJECT:DaVinci Resolve:Template_4K_UHD_v1.drp") as text
 							set fileAliasPath to (NewProjectFolder & "01_PROJECT:DaVinci Resolve") as text
 							set theFile to "Template_4K_UHD_v1.drp"
@@ -77,7 +77,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 						-- RENAME 4K TEMPLATE FILE
 
-						tell application "Finder"
+						tell application "System Events"
 							set fileAlias to (NewProjectFolder & "01_PROJECT:DaVinci Resolve:Template_1080p_v1.drp") as text
 							set fileAliasPath to (NewProjectFolder & "01_PROJECT:DaVinci Resolve") as text
 							set theFile to "Template_1080p_v1.drp"
@@ -112,7 +112,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 					-- RENAME 4K TEMPLATE FILE
 
-					tell application "Finder"
+					tell application "System Events"
 						set fileAlias to (NewProjectFolder & "01_PROJECT:DaVinci Resolve:Template_4K_UHD_v1.drp") as text
 						set fileAliasPath to (NewProjectFolder & "01_PROJECT:DaVinci Resolve") as text
 						set theFile to "Template_4K_UHD_v1.drp"
@@ -130,7 +130,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 					-- RENAME 4K TEMPLATE FILE
 
-					tell application "Finder"
+					tell application "System Events"
 						set fileAlias to (NewProjectFolder & "01_PROJECT:DaVinci Resolve:Template_1080p_v1.drp") as text
 						set fileAliasPath to (NewProjectFolder & "01_PROJECT:DaVinci Resolve") as text
 						set theFile to "Template_1080p_v1.drp"
