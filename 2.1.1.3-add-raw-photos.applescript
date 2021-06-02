@@ -1,4 +1,4 @@
-on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
+on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 
 	
@@ -233,7 +233,9 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
 
 
 	set scriptAddMediasFromSetPath to (scriptPath & "2.1.1-add-medias-from-set.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
-	run script scriptAddMediasFromSetPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder}
+	run script scriptAddMediasFromSetPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+
+	return
 
 
 end run

@@ -35,7 +35,8 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 	if FileManageMenuRes is {"add Medias from set"} then
 		set scriptAddMediasFromSetPath to (scriptPath & "2.1.1-add-medias-from-set.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
-		run script scriptAddMediasFromSetPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder}
+		run script scriptAddMediasFromSetPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+		return 
 	end if
 
 
@@ -46,7 +47,8 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 	if FileManageMenuRes is {"add Ressources medias"} then
 		set scriptAddRessourcesMediasPath to (scriptPath & "2.1.2-add-ressources-medias.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
-		run script scriptAddRessourcesMediasPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder}
+		run script scriptAddRessourcesMediasPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+		return
 	end if
 
 	
@@ -57,6 +59,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 	if FileManageMenuRes is {"add Workflow"} then
 		set scriptAddWorkflowPath to (scriptPath & "2.1.3-add-workflow.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
 		run script scriptAddWorkflowPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+		return
 	end if
 
 
@@ -68,6 +71,8 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 	set scriptNVPManagerPath to (scriptPath & "/Video-Folder-Manager.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
 	baseVariables's write_to_file(" \n \n call to run the script = " & scriptNVPManagerPath & "  \n \n",logPath,true) -- write in log file the calling script
 	run script scriptNVPManagerPath with parameters false
+
+	return
 
 
 end run

@@ -1,4 +1,4 @@
-on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
+on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 
 	
@@ -35,7 +35,8 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
 	if addMediaFromSetMenuRes is {"add Video Rushes"} then
 		baseVariables's write_to_file("\n \n  Call to run the script = 2.1.1.1-add-video-rushes.applescript \n \n",logPath,true) -- write the result of the choice of the ADD MEDIA FROM SET MENU
 		set scriptAddVideoRushesPath to (scriptPath & "2.1.1.1-add-video-rushes.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
-		run script scriptAddVideoRushesPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder}
+		run script scriptAddVideoRushesPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+		return
 	end if
 
 
@@ -47,7 +48,8 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
 	if addMediaFromSetMenuRes is {"add Audio Rushes"} then
 		baseVariables's write_to_file("\n \n  Call to run the script = 2.1.1.2-add-audio-rushes.applescript \n \n",logPath,true) -- write the result of the choice of the ADD MEDIA FROM SET MENU
 		set scriptAddAudioRushesPath to (scriptPath & "2.1.1.2-add-audio-rushes.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
-		run script scriptAddAudioRushesPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder}
+		run script scriptAddAudioRushesPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+		return
 	end if
 
 
@@ -59,7 +61,8 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
 	if addMediaFromSetMenuRes is {"add RAW Photos"} then
 		baseVariables's write_to_file("\n \n  Call to run the script = 2.1.1.3-add-raw-photos.applescript \n \n",logPath,true) -- write the result of the choice of the ADD MEDIA FROM SET MENU
 		set scriptAddRawPhotosPath to (scriptPath & "2.1.1.3-add-raw-photos.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
-		run script scriptAddRawPhotosPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder}
+		run script scriptAddRawPhotosPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+		return
 	end if
 
 
@@ -73,6 +76,6 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
 	baseVariables's write_to_file(" \n \n call to run the script = " & scriptFilesManagerPath & "  \n \n",logPath,true) -- write in log file the calling script
 	run script scriptFilesManagerPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
-
+	return
 
 end run

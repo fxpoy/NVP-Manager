@@ -43,13 +43,12 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 			if (exists (folder ProjectDestinationFolderPath)) then
 				if (exists (folder PremiereProDestinationFolderPath)) then
 				
-					display dialog "A Premiere Pro PROJECT already exit!" buttons {"No", "Yes"} default button 2 with icon (iconAppPremiereProPpath of baseVariables)
+					display dialog "A Premiere Pro PROJECT already exit!" buttons {"OK"} default button 1 with icon (iconAppPremiereProPpath of baseVariables)
 
 
 				else
 					do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/._00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/_00_RESSOURCES_ALGO"))
 
-					-- do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/Premiere Pro/._00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/Premiere Pro/_00_RESSOURCES_ALGO"))
 
 					do shell script "mv " & (quoted form of PremiereProRessourceFolder) & " " & (quoted form of ProjectFolder)
 
@@ -118,6 +117,8 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 	set scriptAddWorkflowPath to (scriptPath & "2.1.3-add-workflow.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
 	run script scriptAddWorkflowPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+
+	return
 
 
 end run

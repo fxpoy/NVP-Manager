@@ -36,6 +36,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 		baseVariables's write_to_file("\n \n  Call to run the script = 2.1.3.1-add-DaVinci-Resolve-Workflow.applescript \n \n",logPath,true) -- write the result of the choice of the ADD MEDIA FROM SET MENU
 		set scriptAddDavinciResolveWorkflowPath to (scriptPath & "2.1.3.1-add-DaVinci-Resolve-Workflow.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
 		run script scriptAddDavinciResolveWorkflowPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+		return
 	end if
 
 
@@ -47,6 +48,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 		baseVariables's write_to_file("\n \n  Call to run the script = 2.1.3.2-add-Premiere-Pro-Workflow.applescript \n \n",logPath,true) -- write the result of the choice of the ADD MEDIA FROM SET MENU
 		set scriptAddPremierProWorkflowPath to (scriptPath & "2.1.3.2-add-Premiere-Pro-Workflow.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
 		run script scriptAddPremierProWorkflowPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+		return
 	end if
 
 
@@ -57,6 +59,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 		baseVariables's write_to_file("\n \n  Call to run the script = 2.1.3.3-add-After-Effect-Workflow.applescript \n \n",logPath,true) -- write the result of the choice of the ADD MEDIA FROM SET MENU
 		set scriptAddAfterEffectWorkflowPath to (scriptPath & "2.1.3.3-add-After-Effect-Workflow.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
 		run script scriptAddAfterEffectWorkflowPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+		return
 	end if
 
 
@@ -69,6 +72,8 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 	baseVariables's write_to_file(" \n \n call to run the script = " & scriptFilesManagerPath & "  \n \n",logPath,true) -- write in log file the calling script
 	run script scriptFilesManagerPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+
+	return
 
 
 
