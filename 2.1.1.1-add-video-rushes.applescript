@@ -19,7 +19,7 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 	-- IMPORT VIDEO RUSHES
 
-	set VideoRushesSourceFiles to (choose file with prompt "Please select the original Video rushes to import in the project folder :" of type {"public.movie"} with multiple selections allowed) -- ask for a selection a files of type : video
+	set VideoRushesSourceFiles to (choose file with prompt "Please select the original Video rushes to import in the project folder :" with multiple selections allowed) -- ask for a selection a files of type : video
 	baseVariables's write_to_file("var VideoRushesSourceFiles = " & VideoRushesSourceFiles & " \n \n",logPath,true) -- write in log file the value of VideoRushesSourceFiles
 
 	Set VideoRushesDestinationFolderPpath to (NewProjectFolderPath & "/02_MEDIAS FROM SET/VIDEO RUSHES")

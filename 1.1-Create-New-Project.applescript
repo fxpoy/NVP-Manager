@@ -224,17 +224,68 @@ On run {scriptPath}
 
 
 	if newPojectMenuRes is {"Create on EXTERNAL VOLUME"} then
-		
+
+		set AllVolumesList to do shell script "find /Volumes -mindepth 1  -maxdepth 1 -type d -exec basename {} \\; | grep -v ECOMMERCE | grep -v Corbeille | sort"
+		set AppleScript's text item delimiters to {return & linefeed, return, linefeed, character id 8233, character id 8232}
+		set allvolumesName to (every text item in AllVolumesList) as list
+		baseVariables's write_to_file("\n \n --CHOOSE THE VOLUMES NAME \n \n var allvolumesName =\n{" & allvolumesName & "} \n \n",logPath,true) -- write in log file the value of allvolumesName
+
+		set volumesName to (choose from list allvolumesName with title "Video project name" with prompt "Select the Volumes fot where will be create the new video project : " OK button name {"OK"} cancel button name {"Cancel"}) as text -- call for the name of the new project
+		baseVariables's write_to_file("var volumesName = " & volumesName & " \n \n",logPath,true) -- write in log file the value of volumesName
+
+		set rootDirFolderPpath to (volumesName & ":ECOMMERCE:VIDEO_PROJECT")
+		baseVariables's write_to_file("var rootDirFolderPpath = " & rootDirFolderPpath & " \n \n",logPath,true) -- write in log file the value of rootDirFolderPpath
+
+		set rootDirFolder to POSIX path of rootDirFolderPpath  -- call to the Local directory of global video project folder
+		baseVariables's write_to_file("var rootDirFolder = " & rootDirFolder & " \n \n",logPath,true) -- write in log file the value of rootDirFolder
+
+		set NewProjectFolderPath to (rootDirFolder & "/" & clientName & "/" & globalProjectName) -- call to the directory of the futur new project folder
+		baseVariables's write_to_file("\n \n  path of the future New Project Folder = " & NewProjectFolderPath & " \n \n",logPath,true) -- write the result of the choice of the main menu
 
 
-		--ASK FOR THE DIRECTORY OF THE GLOBAL PROJECT FOLDER
+		set NewProjectFolder to POSIX file NewProjectFolderPath
+		baseVariables's write_to_file("\n \n  var NewProjectFolder = " & NewProjectFolder & " \n \n",logPath,true) 
 
+		-- VERIFY IF PROJECT FOLDER DOESN'T EXIST
 
-		
-		set New_Project_RootFolderDirectory to (choose folder with prompt "Please select the directory of the project folder :") -- user tell the directory of the future new project folder 
-		baseVariables's write_to_file("\n \n --ASK FOR THE DIRECTORY OF THE GLOBAL PROJECT FOLDER \n \n var New_Project_RootFolderDirectory = " & New_Project_RootFolderDirectory & " \n \n",logPath,true) -- write in log file the value of New_Project_RootFolderDirectory
+		set NewProjectFolderPathAsText to NewProjectFolder as text
 
+		tell application "System Events"
+			if (exists (folder NewProjectFolderPathAsText)) then
 
+				display dialog "the project " & globalProjectName & "already exist in this directory!"  buttons {"OK"} default button 1 with icon 2
+
+				-- RETURN TO THE MAIN MENU
+
+				set scriptNVPManagerPath to (scriptPath & "/Video-Folder-Manager.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
+				baseVariables's write_to_file(" \n \n call to run the script = " & scriptNVPManagerPath & "  \n \n",logPath,true) -- write in log file the calling script
+				run script scriptNVPManagerPath with parameters false
+				return
+				
+			else
+
+				-- CREATE NEW PROJECT FOLDER TO THE DIRECTORY
+
+				do shell script "mkdir -p " & (quoted form of NewProjectFolderPath) -- Create the New Porject Folder
+
+			end if
+		end tell
+		--IMPORT EXPORT TEMPLATE FOLDERS FROM NAS
+
+		set ExportTemplateFolderSourcesPpath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:ZZ_EXPORTS") as text -- call to the path of the "/ZZ_EXPORTS" folder
+		baseVariables's write_to_file("var ExportTemplateFolderSourcesPpath = " & ExportTemplateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of ExportTemplateFolderSourcesPpath
+
+		tell application "Finder"
+			duplicate ExportTemplateFolderSourcesPpath to NewProjectFolder
+		end tell 
+
+		-- RUN THE SCRIPT FILES MANAGER
+
+		set scriptFilesManagerPath to (scriptPath & "2.1-Files-Manager.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
+
+		baseVariables's write_to_file(" \n \n call to run the script = " & scriptFilesManagerPath & "  \n \n",logPath,true) -- write in log file the calling script
+		run script scriptFilesManagerPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
+		return
 
 
 	end if
