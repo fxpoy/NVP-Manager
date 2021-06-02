@@ -87,7 +87,44 @@ On run {scriptPath}
 
 		do shell script "mkdir -p " & (quoted form of NewProjectFolderPath) -- Create the New Porject Folder
 
-		-- RUN THE SCRIPT FILEs MANAGER
+		--IMPORT THE TEMPLATE FOLDERS FROM NAS
+
+		set NewProjectFolderPpath to (quoted form of NewProjectFolderPath)
+
+		set templateFolderSources to "/Volumes/ECOMMERCE/VIDEO_PROJECT/._00_RESSOURCES_ALGO/02_TREEFOLDER_VIDEO_PROJECT" -- give the path of templateFolderSources
+		baseVariables's write_to_file("\n \n --IMPORT THE TEMPLATE FOLDERS FROM NAS \n \n var templateFolderSources = " & templateFolderSources & " \n \n",logPath,true) -- write in log file the value of templateFolderSources
+
+		set templateFolderSourcesPath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT")
+		baseVariables's write_to_file("\n \n  var templateFolderSourcesPath = " & templateFolderSourcesPath & " \n \n",logPath,true) -- write in log file the value of templateFolderSourcesPath
+
+		set ProjectTemplateFolderSourcesPath to (quoted form of (templateFolderSources & "/01_PROJECT")) -- call to the path of the "/01_PROJECT" folder
+		baseVariables's write_to_file("var ProjectTemplateFolderSourcesPath = " & ProjectTemplateFolderSourcesPath & " \n \n",logPath,true) -- write in log file the value of ProjectTemplateFolderSourcesPath
+
+		set MediasTemplateFolderSourcesPath to (quoted form of (templateFolderSources & "/02_MEDIAS FROM SET"))  -- call to the path of the "/02_MEDIAS FROM SET" folder
+		baseVariables's write_to_file("var MediasTemplateFolderSourcesPath = " & MediasTemplateFolderSourcesPath & " \n \n",logPath,true) -- write in log file the value of MediasTemplateFolderSourcesPath
+
+		set RessourcesTemplateFolderSourcesPath to (quoted form of (templateFolderSources & "/03_RESSOURCES MEDIAS"))-- call to the path of the "/03_RESSOURCES MEDIAS" folder
+		baseVariables's write_to_file("var RessourcesTemplateFolderSourcesPath = " & RessourcesTemplateFolderSourcesPath & " \n \n",logPath,true) -- write in log file the value of RessourcesTemplateFolderSourcesPath
+
+		set ExportTemplateFolderSourcesPath to (quoted form of (templateFolderSources & "/ZZ_EXPORTS"))-- call to the path of the "/ZZ_EXPORTS" folder
+		baseVariables's write_to_file("var ExportTemplateFolderSourcesPath = " & ExportTemplateFolderSourcesPath & " \n \n",logPath,true) -- write in log file the value of ExportTemplateFolderSourcesPath
+
+		set ExportTemplateFolderSourcesPpath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:ZZ_EXPORTS") as text -- call to the path of the "/ZZ_EXPORTS" folder
+		baseVariables's write_to_file("var ExportTemplateFolderSourcesPpath = " & ExportTemplateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of ExportTemplateFolderSourcesPpath
+
+
+
+		-- do shell script "rsync -r " & ProjectTemplateFolderSourcesPath & " " & NewProjectFolderPpath -- copy ProjectTemplateFolderSourcesPath in the New Project Folder
+		-- --do shell script "rsync -r " & MediasTemplateFolderSourcesPath & " " & NewProjectFolderPpath -- copy MediasTemplateFolderSourcesPath in the New Project Folder
+		-- do shell script "rsync -r " & RessourcesTemplateFolderSourcesPath & " " & NewProjectFolderPpath -- copy RessourcesTemplateFolderSourcesPath in the New Project Folder
+
+		tell application "Finder"
+			duplicate ExportTemplateFolderSourcesPpath to NewProjectFolder
+		end tell 
+
+		--do shell script "rsync -r " & ExportTemplateFolderSourcesPath & " " & NewProjectFolderPpath -- copy ExportTemplateFolderSourcesPath in the New Project Folder
+
+		-- RUN THE SCRIPT FILES MANAGER
 
 		set scriptFilesManagerPath to (scriptPath & "2.1-Files-Manager.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
 
