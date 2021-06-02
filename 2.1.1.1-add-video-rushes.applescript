@@ -25,9 +25,9 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
 	Set VideoRushesDestinationFolderPpath to (NewProjectFolderPath & "/02_MEDIAS FROM SET/VIDEO RUSHES")
 	baseVariables's write_to_file("var VideoRushesDestinationFolderPpath = " & VideoRushesDestinationFolderPpath & " \n \n",logPath,true) -- write in log file the value of VideoRushesDestinationFolderPpath
 
+
 	-- CREATE THE DIRECTORY FOR THE VIDEO RUSHES FOLDER
 
-	-- do shell script "mkdir -p " & (quoted form of VideoRushesDestinationFolderPpath)
 
 	set MediaFromSetDestinationFolderPath to (NewProjectFolder & "02_MEDIAS FROM SET") as text -- call to the path of the destination for the files selected  from VideoRushesSourceFiles
 	baseVariables's write_to_file("var MediaFromSetDestinationFolderPath = " & MediaFromSetDestinationFolderPath & " \n \n",logPath,true) -- write in log file the value of MediaFromSetDestinationFolderPath
@@ -40,9 +40,10 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
 	if button returned of manipulationVideofiles = "Duplicate files" then
 		
 		-- VERIFY THE EXISTING PATH FOR THE DESTINATION FOLDER
+
 		tell application "Finder"
 			if (exists (folder MediaFromSetDestinationFolderPath)) then
-				if (exists (folder MediaFromSetDestinationFolderPath)) then
+				if (exists (folder VideoRushesDestinationFolderPath)) then
 				
 					tell application "Finder"
 					    repeat with f in (get items of VideoRushesSourceFiles)

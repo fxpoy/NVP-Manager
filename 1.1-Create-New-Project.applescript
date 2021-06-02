@@ -129,7 +129,7 @@ On run {scriptPath}
 		set scriptFilesManagerPath to (scriptPath & "2.1-Files-Manager.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
 
 		baseVariables's write_to_file(" \n \n call to run the script = " & scriptFilesManagerPath & "  \n \n",logPath,true) -- write in log file the calling script
-		run script scriptFilesManagerPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder}
+		run script scriptFilesManagerPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 	end if
 

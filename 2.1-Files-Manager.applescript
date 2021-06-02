@@ -1,4 +1,4 @@
-on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
+on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 
 
 	
@@ -36,6 +36,27 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
 	if FileManageMenuRes is {"add Medias from set"} then
 		set scriptAddMediasFromSetPath to (scriptPath & "2.1.1-add-medias-from-set.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
 		run script scriptAddMediasFromSetPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder}
+	end if
+
+
+	
+	-- RUN SCRIPT 2.1.2-add-ressources-media.applescript
+
+
+
+	if FileManageMenuRes is {"add Ressources medias"} then
+		set scriptAddRessourcesMediasPath to (scriptPath & "2.1.2-add-ressources-medias.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
+		run script scriptAddRessourcesMediasPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder}
+	end if
+
+	
+	-- RUN SCRIPT 2.1.3-add-workflow.applescript
+
+
+
+	if FileManageMenuRes is {"add Workflow"} then
+		set scriptAddWorkflowPath to (scriptPath & "2.1.3-add-workflow.applescript")  -- create a variable for the path of the folder which contain the script "base_variables.scptd"
+		run script scriptAddWorkflowPath with parameters {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 	end if
 
 

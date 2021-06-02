@@ -28,9 +28,12 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
 	Set AudioRushesDestinationFolderPpath to (NewProjectFolderPath & "/02_MEDIAS FROM SET/AUDIO RUSHES")
 	baseVariables's write_to_file("var AudioRushesDestinationFolderPpath = " & AudioRushesDestinationFolderPpath & " \n \n",logPath,true) -- write in log file the value of AudioRushesDestinationFolderPpath
 
+
 	-- CREATE THE DIRECTORY FOR THE AUDIO RUSHES FOLDER
 
-	do shell script "mkdir -p " & (quoted form of AudioRushesDestinationFolderPpath)
+
+	set MediaFromSetDestinationFolderPath to (NewProjectFolder & "02_MEDIAS FROM SET") as text -- call to the path of the destination for the files selected  from AudioRushesSourceFiles
+	baseVariables's write_to_file("var MediaFromSetDestinationFolderPath = " & MediaFromSetDestinationFolderPath & " \n \n",logPath,true) -- write in log file the value of MediaFromSetDestinationFolderPath
 
 
 	set AudioRushesDestinationFolderPath to (NewProjectFolder & "02_MEDIAS FROM SET:AUDIO RUSHES") as text -- call to the path of the destination for the files selected  from AudioRushesSourceFiles
@@ -39,8 +42,62 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
 	set manipulationAudiofiles to (display dialog "Choose your manipulating finder files for the Audio Rushes importing :" buttons {"Move files", "Duplicate files"} default button 2 with icon (iconSoundFolderPpath of baseVariables)) -- ask for Moving or Duplicating action for the files from AudioRushesSourceFiles
 
 	if button returned of manipulationAudiofiles = "Duplicate files" then
+
+		-- VERIFY THE EXISTING PATH FOR THE DESTINATION FOLDER
+		
 		tell application "Finder"
-			duplicate AudioRushesSourceFiles to AudioRushesDestinationFolderPath -- duplicate the files from AudioRushesSourceFiles in the folder AudioRushesDestinationFolderPath
+			if (exists (folder MediaFromSetDestinationFolderPath)) then
+				if (exists (folder AudioRushesDestinationFolderPath)) then
+				
+					tell application "Finder"
+					    repeat with f in (get items of AudioRushesSourceFiles)
+					        if not (exists file (name of f) of folder AudioRushesDestinationFolderPath) then
+					            duplicate f to folder AudioRushesDestinationFolderPath without replacing
+					        end if
+					    end repeat
+					end tell
+
+				else
+					set AudioRushesTemplateFolderSourcesPpath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:AUDIO RUSHES") as text -- call to the path of the "/ZZ_EXPORTS" folder
+					baseVariables's write_to_file("var AudioRushesTemplateFolderSourcesPpath = " & AudioRushesTemplateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of AudioRushesTemplateFolderSourcesPpath
+
+					tell application "Finder"
+						duplicate AudioRushesTemplateFolderSourcesPpath to MediaFromSetDestinationFolderPath
+					end tell
+
+					tell application "Finder"
+						duplicate AudioRushesSourceFiles to AudioRushesDestinationFolderPath without replacing-- duplicate the files from AudioRushesSourceFiles in the folder AudioRushesDestinationFolderPath
+					end tell
+
+					tell application "Finder"
+					    repeat with f in (get items of AudioRushesSourceFiles)
+					        if not (exists file (name of f) of folder AudioRushesDestinationFolderPath) then
+					            duplicate f to folder AudioRushesDestinationFolderPath without replacing
+					        end if
+					    end repeat
+					end tell
+
+				end if
+			else
+				set MediaFromSetTemplateFolderSourcesPpath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:02_MEDIAS FROM SET") as text -- call to the path of the "/ZZ_EXPORTS" folder
+				baseVariables's write_to_file("var MediaFromSetTemplateFolderSourcesPpath = " & MediaFromSetTemplateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of MediaFromSetTemplateFolderSourcesPpath
+
+				tell application "Finder"
+					duplicate MediaFromSetTemplateFolderSourcesPpath to NewProjectFolder
+				end tell
+
+				set AudioRushesTemplateFolderSourcesPpath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:AUDIO RUSHES") as text -- call to the path of the "/ZZ_EXPORTS" folder
+				baseVariables's write_to_file("var AudioRushesTemplateFolderSourcesPpath = " & AudioRushesTemplateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of AudioRushesTemplateFolderSourcesPpath
+
+				tell application "Finder"
+					duplicate AudioRushesTemplateFolderSourcesPpath to MediaFromSetDestinationFolderPath
+				end tell
+
+				tell application "Finder"
+					duplicate AudioRushesSourceFiles to AudioRushesDestinationFolderPath without replacing-- duplicate the files from AudioRushesSourceFiles in the folder AudioRushesDestinationFolderPath
+				end tell
+
+			end if
 		end tell
 	end if
 
@@ -48,14 +105,122 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder}
 		set confirmationAudioMoving to (display dialog "Confirmation to removing files from " & AudioRushesSourceFiles & "to moving them to the project folder " buttons {"No, duplicate them", "Confirm removing"} default button 2 with icon 2)
 
 		if button returned of confirmationAudioMoving = "Confirm removing" then
+			
+			-- VERIFY THE EXISTING PATH FOR THE DESTINATION FOLDER
+		
 			tell application "Finder"
-				move AudioRushesSourceFiles to AudioRushesDestinationFolderPath -- moving the files from AudioRushesSourceFiles in the folder AudioRushesDestinationFolderPath
+				if (exists (folder MediaFromSetDestinationFolderPath)) then
+					if (exists (folder AudioRushesDestinationFolderPath)) then
+					
+						tell application "Finder"
+						    repeat with f in (get items of AudioRushesSourceFiles)
+						        if not (exists file (name of f) of folder AudioRushesDestinationFolderPath) then
+						            move f to folder AudioRushesDestinationFolderPath without replacing
+						        end if
+						    end repeat
+						end tell
+
+					else
+						set AudioRushesTemplateFolderSourcesPpath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:AUDIO RUSHES") as text -- call to the path of the "/ZZ_EXPORTS" folder
+						baseVariables's write_to_file("var AudioRushesTemplateFolderSourcesPpath = " & AudioRushesTemplateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of AudioRushesTemplateFolderSourcesPpath
+
+						tell application "Finder"
+							duplicate AudioRushesTemplateFolderSourcesPpath to MediaFromSetDestinationFolderPath
+						end tell
+
+						tell application "Finder"
+							duplicate AudioRushesSourceFiles to AudioRushesDestinationFolderPath without replacing-- duplicate the files from AudioRushesSourceFiles in the folder AudioRushesDestinationFolderPath
+						end tell
+
+						tell application "Finder"
+						    repeat with f in (get items of AudioRushesSourceFiles)
+						        if not (exists file (name of f) of folder AudioRushesDestinationFolderPath) then
+						            move f to folder AudioRushesDestinationFolderPath without replacing
+						        end if
+						    end repeat
+						end tell
+
+					end if
+				else
+					set MediaFromSetTemplateFolderSourcesPpath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:02_MEDIAS FROM SET") as text -- call to the path of the "/ZZ_EXPORTS" folder
+					baseVariables's write_to_file("var MediaFromSetTemplateFolderSourcesPpath = " & MediaFromSetTemplateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of MediaFromSetTemplateFolderSourcesPpath
+
+					tell application "Finder"
+						duplicate MediaFromSetTemplateFolderSourcesPpath to NewProjectFolder
+					end tell
+
+					set AudioRushesTemplateFolderSourcesPpath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:AUDIO RUSHES") as text -- call to the path of the "/ZZ_EXPORTS" folder
+					baseVariables's write_to_file("var AudioRushesTemplateFolderSourcesPpath = " & AudioRushesTemplateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of AudioRushesTemplateFolderSourcesPpath
+
+					tell application "Finder"
+						duplicate AudioRushesTemplateFolderSourcesPpath to MediaFromSetDestinationFolderPath
+					end tell
+
+					tell application "Finder"
+						move AudioRushesSourceFiles to AudioRushesDestinationFolderPath without replacing-- duplicate the files from AudioRushesSourceFiles in the folder AudioRushesDestinationFolderPath
+					end tell
+
+				end if
 			end tell
 		end if
 
 		if button returned of confirmationAudioMoving = "No, duplicate them" then
+			
+			-- VERIFY THE EXISTING PATH FOR THE DESTINATION FOLDER
+		
 			tell application "Finder"
-				duplicate AudioRushesSourceFiles to AudioRushesDestinationFolderPath -- duplicate the files from AudioRushesSourceFiles in the folder AudioRushesDestinationFolderPath
+				if (exists (folder MediaFromSetDestinationFolderPath)) then
+					if (exists (folder AudioRushesDestinationFolderPath)) then
+					
+						tell application "Finder"
+						    repeat with f in (get items of AudioRushesSourceFiles)
+						        if not (exists file (name of f) of folder AudioRushesDestinationFolderPath) then
+						            duplicate f to folder AudioRushesDestinationFolderPath without replacing
+						        end if
+						    end repeat
+						end tell
+
+					else
+						set AudioRushesTemplateFolderSourcesPpath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:AUDIO RUSHES") as text -- call to the path of the "/ZZ_EXPORTS" folder
+						baseVariables's write_to_file("var AudioRushesTemplateFolderSourcesPpath = " & AudioRushesTemplateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of AudioRushesTemplateFolderSourcesPpath
+
+						tell application "Finder"
+							duplicate AudioRushesTemplateFolderSourcesPpath to MediaFromSetDestinationFolderPath
+						end tell
+
+						tell application "Finder"
+							duplicate AudioRushesSourceFiles to AudioRushesDestinationFolderPath without replacing-- duplicate the files from AudioRushesSourceFiles in the folder AudioRushesDestinationFolderPath
+						end tell
+
+						tell application "Finder"
+						    repeat with f in (get items of AudioRushesSourceFiles)
+						        if not (exists file (name of f) of folder AudioRushesDestinationFolderPath) then
+						            duplicate f to folder AudioRushesDestinationFolderPath without replacing
+						        end if
+						    end repeat
+						end tell
+
+					end if
+				else
+					set MediaFromSetTemplateFolderSourcesPpath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:02_MEDIAS FROM SET") as text -- call to the path of the "/ZZ_EXPORTS" folder
+					baseVariables's write_to_file("var MediaFromSetTemplateFolderSourcesPpath = " & MediaFromSetTemplateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of MediaFromSetTemplateFolderSourcesPpath
+
+					tell application "Finder"
+						duplicate MediaFromSetTemplateFolderSourcesPpath to NewProjectFolder
+					end tell
+
+					set AudioRushesTemplateFolderSourcesPpath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:AUDIO RUSHES") as text -- call to the path of the "/ZZ_EXPORTS" folder
+					baseVariables's write_to_file("var AudioRushesTemplateFolderSourcesPpath = " & AudioRushesTemplateFolderSourcesPpath & " \n \n",logPath,true) -- write in log file the value of AudioRushesTemplateFolderSourcesPpath
+
+					tell application "Finder"
+						duplicate AudioRushesTemplateFolderSourcesPpath to MediaFromSetDestinationFolderPath
+					end tell
+
+					tell application "Finder"
+						duplicate AudioRushesSourceFiles to AudioRushesDestinationFolderPath without replacing-- duplicate the files from AudioRushesSourceFiles in the folder AudioRushesDestinationFolderPath
+					end tell
+
+				end if
 			end tell
 		end if
 		
