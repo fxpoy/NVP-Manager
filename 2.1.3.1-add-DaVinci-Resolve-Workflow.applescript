@@ -50,9 +50,99 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 			if (exists (folder ProjectDestinationFolderPath)) then
 				if (exists (folder DaVinciResolveDestinationFolderPath)) then
 				
-					-- Do NOTHING pour le moment
+					do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/._00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/_00_RESSOURCES_ALGO"))
+
+					do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/DaVinci Resolve/._00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/DaVinci Resolve/_00_RESSOURCES_ALGO"))
+
+					set DaVinciDefworkflow to (display dialog "Choose your timeline resolution for DaVinci Resolve  :" buttons {"1080p", "4K UHD"} default button 2 with icon (iconAppDavinciResolvePpath of baseVariables))
+
+					if button returned of DaVinciDefworkflow = "4K UHD" then
+						do shell script "mv " & (quoted form of DaVinci4Kfile) & " " & (quoted form of DaVinciFolder)
+
+						-- RENAME 4K TEMPLATE FILE
+
+						tell application "Finder"
+							set fileAlias to (NewProjectFolder & "01_PROJECT:DaVinci Resolve:Template_4K_UHD_v1.drp") as text
+							set fileAliasPath to (NewProjectFolder & "01_PROJECT:DaVinci Resolve") as text
+							set theFile to "Template_4K_UHD_v1.drp"
+							set AppleScript's text item delimiters to "."
+							set fileName to name of file fileAlias 
+							set fileExtension to last text item of fileName
+							set nameWithoutExtension to first text item of fileName 
+							set newName to (globalProjectName & "_4K_UHD_v1." & fileExtension)
+							set name of file theFile of folder fileAliasPath to newName --> rename the file
+						end tell
+					end if
+
+					if button returned of DaVinciDefworkflow = "1080p" then
+						do shell script "mv " & (quoted form of DaVinci1080pfile) & " " & (quoted form of DaVinciFolder)
+
+						-- RENAME 4K TEMPLATE FILE
+
+						tell application "Finder"
+							set fileAlias to (NewProjectFolder & "01_PROJECT:DaVinci Resolve:Template_1080p_v1.drp") as text
+							set fileAliasPath to (NewProjectFolder & "01_PROJECT:DaVinci Resolve") as text
+							set theFile to "Template_1080p_v1.drp"
+							set AppleScript's text item delimiters to "."
+							set fileName to name of file fileAlias 
+							set fileExtension to last text item of fileName
+							set nameWithoutExtension to first text item of fileName 
+							set newName to (globalProjectName & "_1080p_v1." & fileExtension)
+							set name of file theFile of folder fileAliasPath to newName --> rename the file
+						end tell
+					end if
+
+					do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/DaVinci Resolve/_00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/DaVinci Resolve/._00_RESSOURCES_ALGO"))
+					do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/_00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/._00_RESSOURCES_ALGO"))
+
 
 				else
+					do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/._00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/_00_RESSOURCES_ALGO"))
+
+					do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/DaVinci Resolve/._00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/DaVinci Resolve/_00_RESSOURCES_ALGO"))
+
+					do shell script "mv " & (quoted form of DaVinciRessourceFolder) & " " & (quoted form of ProjectFolder)
+
+					set DaVinciDefworkflow to (display dialog "Choose your timeline resolution for DaVinci Resolve  :" buttons {"1080p", "4K UHD"} default button 2 with icon (iconAppDavinciResolvePpath of baseVariables))
+
+					if button returned of DaVinciDefworkflow = "4K UHD" then
+						do shell script "mv " & (quoted form of DaVinci4Kfile) & " " & (quoted form of DaVinciFolder)
+
+						-- RENAME 4K TEMPLATE FILE
+
+						tell application "Finder"
+							set fileAlias to (NewProjectFolder & "01_PROJECT:DaVinci Resolve:Template_4K_UHD_v1.drp") as text
+							set fileAliasPath to (NewProjectFolder & "01_PROJECT:DaVinci Resolve") as text
+							set theFile to "Template_4K_UHD_v1.drp"
+							set AppleScript's text item delimiters to "."
+							set fileName to name of file fileAlias 
+							set fileExtension to last text item of fileName
+							set nameWithoutExtension to first text item of fileName 
+							set newName to (globalProjectName & "_4K_UHD_v1." & fileExtension)
+							set name of file theFile of folder fileAliasPath to newName --> rename the file
+						end tell
+					end if
+
+					if button returned of DaVinciDefworkflow = "1080p" then
+						do shell script "mv " & (quoted form of DaVinci1080pfile) & " " & (quoted form of DaVinciFolder)
+
+						-- RENAME 4K TEMPLATE FILE
+
+						tell application "Finder"
+							set fileAlias to (NewProjectFolder & "01_PROJECT:DaVinci Resolve:Template_1080p_v1.drp") as text
+							set fileAliasPath to (NewProjectFolder & "01_PROJECT:DaVinci Resolve") as text
+							set theFile to "Template_1080p_v1.drp"
+							set AppleScript's text item delimiters to "."
+							set fileName to name of file fileAlias 
+							set fileExtension to last text item of fileName
+							set nameWithoutExtension to first text item of fileName 
+							set newName to (globalProjectName & "_1080p_v1." & fileExtension)
+							set name of file theFile of folder fileAliasPath to newName --> rename the file
+						end tell
+					end if
+
+					do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/DaVinci Resolve/_00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/DaVinci Resolve/._00_RESSOURCES_ALGO"))
+					do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/_00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/._00_RESSOURCES_ALGO"))
 
 
 
@@ -61,10 +151,11 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 				set ProjectTemplateFolderSourcesPath to (":ECOMMERCE:VIDEO_PROJECT:._00_RESSOURCES_ALGO:02_TREEFOLDER_VIDEO_PROJECT:01_PROJECT") as text -- import le dossier ressource pour 01_PROJECT
 
 				tell application "Finder"
-					duplicate ProjectTemplateFolderSourcesPath to NewProjectFolder
+					duplicate ProjectTemplateFolderSourcesPath to NewProjectFolder -- ajoute le dossier Projet qui n'existant pas dans le dossier de projet
 				end tell
 
 				do shell script "mv " & (quoted form of DaVinciRessourceFolder) & " " & (quoted form of ProjectFolder)
+
 				set DaVinciDefworkflow to (display dialog "Choose your timeline resolution for DaVinci Resolve  :" buttons {"1080p", "4K UHD"} default button 2 with icon (iconAppDavinciResolvePpath of baseVariables))
 
 				if button returned of DaVinciDefworkflow = "4K UHD" then
@@ -73,38 +164,38 @@ on run {scriptPath, NewProjectFolderPath, NewProjectFolder, globalProjectName}
 					-- RENAME 4K TEMPLATE FILE
 
 					tell application "Finder"
-	   
 						set fileAlias to (NewProjectFolder & "01_PROJECT:DaVinci Resolve:Template_4K_UHD_v1.drp") as text
 						set fileAliasPath to (NewProjectFolder & "01_PROJECT:DaVinci Resolve") as text
-						-- set filePath to fileAlias as text
-						-- set TID to AppleScript's text item delimiters
-
-						--set AppleScript's text item delimiters to ":"
 						set theFile to "Template_4K_UHD_v1.drp"
-
-						--set oldDelims to AppleScript's text item delimiters
 						set AppleScript's text item delimiters to "."
-
-						
 						set fileName to name of file fileAlias 
 						set fileExtension to last text item of fileName
 						set nameWithoutExtension to first text item of fileName 
 						set newName to (globalProjectName & "_4K_UHD_v1." & fileExtension)
 						set name of file theFile of folder fileAliasPath to newName --> rename the file
-						--set AppleScript's text item delimiters to oldDelims
-						
-					   
 					end tell
 				end if
 
 				if button returned of DaVinciDefworkflow = "1080p" then
 					do shell script "mv " & (quoted form of DaVinci1080pfile) & " " & (quoted form of DaVinciFolder)
+
+					-- RENAME 4K TEMPLATE FILE
+
+					tell application "Finder"
+						set fileAlias to (NewProjectFolder & "01_PROJECT:DaVinci Resolve:Template_1080p_v1.drp") as text
+						set fileAliasPath to (NewProjectFolder & "01_PROJECT:DaVinci Resolve") as text
+						set theFile to "Template_1080p_v1.drp"
+						set AppleScript's text item delimiters to "."
+						set fileName to name of file fileAlias 
+						set fileExtension to last text item of fileName
+						set nameWithoutExtension to first text item of fileName 
+						set newName to (globalProjectName & "_1080p_v1." & fileExtension)
+						set name of file theFile of folder fileAliasPath to newName --> rename the file
+					end tell
 				end if
 
 				do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/DaVinci Resolve/_00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/DaVinci Resolve/._00_RESSOURCES_ALGO"))
 				do shell script "mv " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/_00_RESSOURCES_ALGO")) & " " & (quoted form of (NewProjectFolderPath & "/01_PROJECT/._00_RESSOURCES_ALGO"))
-
-				
 
 
 			end if
