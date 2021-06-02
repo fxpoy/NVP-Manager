@@ -101,7 +101,7 @@ On run {scriptPath}
 		-- CALL FOR THE DIRECTORY OF THE GLOBAL PROJECT FOLDER
 
 		set rootNameUsers to POSIX path of (path to home folder) -- call the path of the Users Home folder
-		set rootDirFolder to rootNameUsers & "Documents/ECOMMERCE/02_VIDEO" -- call to the Local directory of global video project folder
+		set rootDirFolder to rootNameUsers & "Documents/ECOMMERCE/VIDEO_PROJECT" -- call to the Local directory of global video project folder
 
 		set NewProjectFolderPath to (rootDirFolder & "/" & clientName & "/" & globalProjectName) -- call to the directory of the futur new project folder
 		baseVariables's write_to_file("\n \n  path of the future New Project Folder = " & NewProjectFolderPath & " \n \n",logPath,true) -- write the result of the choice of the main menu
